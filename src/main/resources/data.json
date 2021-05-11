@@ -1,0 +1,34 @@
+{
+  "personas": [
+    {
+      "id": 1, "name": "Juan Rivera", "address": "San Jose"
+    },
+    {
+      "id": 1001, "name": "Mc Donalds", "address": "Santa Ana"
+    }
+  ],
+  "contratos": [
+    {
+      "contractNumber": 101, "contractPromiseeId": 1, "tarifa": 1
+    },
+    {
+      "contractNumber": 102, "contractPromiseeId": 1001, "tarifa": 1
+    }
+  ],
+  "medidores": [
+    {
+      "id": 501, "contractNumber": 101
+    },
+    {
+      "id": 502, "contractNumber": 102
+    }
+  ],
+  "reportes": [
+    {
+      "id": 701, "date": "10/05/2020", "kWh": 5000, "medidorId": 501
+    },
+    {
+      "id": 702, "date": "17/10/2020", "kWh": 5000, "medidorId": 502
+    }
+  ]
+}

@@ -6,13 +6,10 @@ public abstract class GenericContrato {
     private int contractPromiseeId;
     protected int tarifa;
 
+
     public GenericContrato(int contractNumber, int contractPromiseeId) {
         this.contractNumber = contractNumber;
         this.contractPromiseeId = contractPromiseeId;
-    }
-
-    public int calculoCobro(int kWh_consumidos){
-        return kWh_consumidos * tarifa;
     }
 
     public int getContractNumber() {

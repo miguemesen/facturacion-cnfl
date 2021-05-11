@@ -6,11 +6,13 @@ public class Reporte {
     private int id;
     private Date date;
     private int kWh;
+    private int medidorId;
 
-    public Reporte(int id, Date date, int kWh) {
+    public Reporte(int id, Date date, int kWh, int medidorId) {
         this.id = id;
         this.date = date;
         this.kWh = kWh;
+        this.medidorId = medidorId;
     }
 
     public int getId() {

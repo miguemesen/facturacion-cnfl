@@ -4,20 +4,12 @@ import java.util.ArrayList;
 
 public class Medidor {
 
-    private ArrayList<Reporte> historial = new ArrayList<>();
+    private int id;
+    private int contractNumber;
+    private ArrayList<Integer> reporteId = new ArrayList<>();
 
-    public void agregarReporte(Reporte reporte){
-        this.historial.add(reporte);
+    public Medidor(int id, int contractNumber) {
+        this.id = id;
+        this.contractNumber = contractNumber;
     }
-
-    public Reporte getReporteById(int id){
-        for (Reporte reporte : historial){
-            if (reporte.getId() == id){
-                return reporte;
-            }
-        }
-        return null;
-    }
-
-
 }
