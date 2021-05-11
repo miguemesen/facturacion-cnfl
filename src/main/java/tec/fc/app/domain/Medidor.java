@@ -12,4 +12,20 @@ public class Medidor {
         this.id = id;
         this.contractNumber = contractNumber;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getContractNumber() {
+        return contractNumber;
+    }
+
+    public void setContractNumber(int contractNumber) {
+        this.contractNumber = contractNumber;
+    }
 }
