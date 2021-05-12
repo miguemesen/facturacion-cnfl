@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface GenericService<T> {
 
-    List<T> getAll();
+    List<Entity> getAll();
 
     T getById(Integer id);
 

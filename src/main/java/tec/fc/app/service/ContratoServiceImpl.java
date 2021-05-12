@@ -38,12 +38,12 @@ public class ContratoServiceImpl implements ContratoService {
     }
 
     @Override
-    public void addNew(Object o) {
+    public void addNew(GenericContrato o) {
         this.contratoDAO.save((GenericContrato) o);
     }
 
     @Override
-    public void update(Object o) {
+    public void update(GenericContrato o) {
         this.contratoDAO.update((GenericContrato) o);
     }
 

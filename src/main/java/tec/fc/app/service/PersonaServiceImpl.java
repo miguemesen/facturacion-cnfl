@@ -21,17 +21,17 @@ public class PersonaServiceImpl implements PersonaService{
     }
 
     @Override
-    public Object getById(Integer id) {
+    public Persona getById(Integer id) {
         return this.personaDAO.findById(id);
     }
 
     @Override
-    public void addNew(Object o) {
+    public void addNew(Persona o) {
         this.personaDAO.save((Persona) o);
     }
 
     @Override
-    public void update(Object o) {
+    public void update(Persona o) {
         this.personaDAO.update((Persona) o);
     }
 

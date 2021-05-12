@@ -9,23 +9,27 @@ public class ReporteServiceImpl implements ReporteService{
 
     private ReporteDAO reporteDAO;
 
+    public ReporteServiceImpl(ReporteDAO reporteDAO) {
+        this.reporteDAO = reporteDAO;
+    }
+
     @Override
     public List getAll() {
         return this.reporteDAO.findAll();
     }
 
     @Override
-    public Object getById(Integer id) {
+    public Reporte getById(Integer id) {
         return this.reporteDAO.findById(id);
     }
 
     @Override
-    public void addNew(Object o) {
+    public void addNew(Reporte o) {
         this.reporteDAO.save((Reporte) o);
     }
 
     @Override
-    public void update(Object o) {
+    public void update(Reporte o) {
         this.reporteDAO.update((Reporte) o);
     }
 

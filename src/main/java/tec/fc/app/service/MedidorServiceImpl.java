@@ -24,12 +24,12 @@ public class MedidorServiceImpl implements MedidorService{
     }
 
     @Override
-    public void addNew(Object o) {
+    public void addNew(Medidor o) {
         this.medidorDAO.save((Medidor) o);
     }
 
     @Override
-    public void update(Object o) {
+    public void update(Medidor o) {
         this.medidorDAO.update((Medidor) o);
     }
 
