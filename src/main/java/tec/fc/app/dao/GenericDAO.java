@@ -1,14 +1,13 @@
 package tec.fc.app.dao;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-public interface GenericDAO<T, ID extends Serializable> {
+public interface GenericDAO<T, ID extends Integer> {
 
     List<T> findAll();
 
-    Optional<T> findById(ID id);
+    T findById(ID id);
 
     void save(T t);
 

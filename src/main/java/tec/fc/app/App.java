@@ -32,7 +32,7 @@ public class App
 
 
         for (GenericContrato genericContrato : contratos){
-            System.out.println(genericContrato.getContractNumber());
+            System.out.println(genericContrato.getId());
         }
 
         for (Medidor medidor : medidores){

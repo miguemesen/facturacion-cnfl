@@ -13,4 +13,11 @@ public class LocalDB {
     public ArrayList<GenericContrato> contratos;
     public ArrayList<Medidor> medidores;
     public ArrayList<Reporte> reportes;
+
+    public LocalDB(ArrayList<Persona> personas, ArrayList<GenericContrato> contratos, ArrayList<Medidor> medidores, ArrayList<Reporte> reportes) {
+        this.personas = personas;
+        this.contratos = contratos;
+        this.medidores = medidores;
+        this.reportes = reportes;
+    }
 }

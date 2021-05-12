@@ -6,7 +6,6 @@ public class Medidor implements Entity{
 
     private Integer id;
     private Integer contractNumber;
-    private ArrayList<Integer> reporteId = new ArrayList<>();
 
     public Medidor(Integer id, Integer contractNumber) {
         this.id = id;
@@ -30,11 +29,4 @@ public class Medidor implements Entity{
         this.contractNumber = contractNumber;
     }
 
-    public ArrayList<Integer> getReporteId() {
-        return reporteId;
-    }
-
-    public void setReporteId(ArrayList<Integer> reporteId) {
-        this.reporteId = reporteId;
-    }
 }
