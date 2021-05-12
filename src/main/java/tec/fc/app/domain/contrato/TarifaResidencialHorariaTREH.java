@@ -1,13 +1,14 @@
 package tec.fc.app.domain.contrato;
 
-public class TarifaResidencialHorariaTREH extends GenericContrato {
+import tec.fc.app.domain.Entity;
+
+public class TarifaResidencialHorariaTREH extends GenericContrato{
 
 
-    public TarifaResidencialHorariaTREH(int contractNumber, int contractPromiseeId) {
+    public TarifaResidencialHorariaTREH(Integer contractNumber, int contractPromiseeId) {
         super(contractNumber, contractPromiseeId);
         tarifa = 10;
     }
-
 
 
 

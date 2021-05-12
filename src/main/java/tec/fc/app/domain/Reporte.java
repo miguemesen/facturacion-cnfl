@@ -2,24 +2,25 @@ package tec.fc.app.domain;
 
 import java.util.Date;
 
-public class Reporte {
-    private int id;
+public class Reporte implements Entity{
+    private Integer id;
     private Date date;
     private int kWh;
-    private int medidorId;
+    private Integer medidorId;
 
-    public Reporte(int id, Date date, int kWh, int medidorId) {
+    public Reporte(Integer id, Date date, int kWh, Integer medidorId) {
         this.id = id;
         this.date = date;
         this.kWh = kWh;
         this.medidorId = medidorId;
     }
 
-    public int getId() {
+    @Override
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -37,5 +38,13 @@ public class Reporte {
 
     public void setkWh(int kWh) {
         this.kWh = kWh;
+    }
+
+    public Integer getMedidorId() {
+        return medidorId;
+    }
+
+    public void setMedidorId(Integer medidorId) {
+        this.medidorId = medidorId;
     }
 }

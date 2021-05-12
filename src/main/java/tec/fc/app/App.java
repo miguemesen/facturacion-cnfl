@@ -6,6 +6,7 @@ import tec.fc.app.domain.cliente.Persona;
 import tec.fc.app.domain.contrato.GenericContrato;
 import tec.fc.app.domain.contrato.TarifaResidencialHorariaTREH;
 
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class App
         ArrayList<Medidor> medidores = parser.cargarMedidores();
         ArrayList<Reporte> reportes = parser.cargarReportes();
         ArrayList<Persona> personas = parser.cargarPersonas();
+
 
         for (GenericContrato genericContrato : contratos){
             System.out.println(genericContrato.getContractNumber());

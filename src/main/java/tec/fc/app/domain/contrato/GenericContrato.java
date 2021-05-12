@@ -1,23 +1,26 @@
 package tec.fc.app.domain.contrato;
 
-public abstract class GenericContrato {
+import tec.fc.app.domain.Entity;
 
-    private int contractNumber;
+public abstract class GenericContrato implements Entity {
+
+    private Integer id;
     private int contractPromiseeId;
     protected int tarifa;
 
 
-    public GenericContrato(int contractNumber, int contractPromiseeId) {
-        this.contractNumber = contractNumber;
+    public GenericContrato(Integer contractNumber, int contractPromiseeId) {
+        this.id = contractNumber;
         this.contractPromiseeId = contractPromiseeId;
     }
 
-    public int getContractNumber() {
-        return contractNumber;
+    @Override
+    public Integer getId() {
+        return id;
     }
 
-    public void setContractNumber(int contractNumber) {
-        this.contractNumber = contractNumber;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public int getContractPromiseeId() {
@@ -26,5 +29,13 @@ public abstract class GenericContrato {
 
     public void setContractPromiseeId(int contractPromiseeId) {
         this.contractPromiseeId = contractPromiseeId;
+    }
+
+    public int getTarifa() {
+        return tarifa;
+    }
+
+    public void setTarifa(int tarifa) {
+        this.tarifa = tarifa;
     }
 }
