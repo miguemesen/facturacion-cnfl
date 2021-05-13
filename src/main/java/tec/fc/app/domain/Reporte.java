@@ -7,12 +7,22 @@ public class Reporte implements Entity{
     private Date date;
     private int kWh;
     private Integer medidorId;
+    private boolean pagoPendiente;
 
-    public Reporte(Integer id, Date date, int kWh, Integer medidorId) {
+    public Reporte(Integer id, Date date, int kWh, Integer medidorId, boolean pagoPendiente) {
         this.id = id;
         this.date = date;
         this.kWh = kWh;
         this.medidorId = medidorId;
+        this.pagoPendiente = pagoPendiente;
+    }
+
+    public boolean isPagoPendiente() {
+        return pagoPendiente;
+    }
+
+    public void setPagoPendiente(boolean pagoPendiente) {
+        this.pagoPendiente = pagoPendiente;
     }
 
     @Override

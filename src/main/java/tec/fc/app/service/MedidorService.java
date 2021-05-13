@@ -18,4 +18,5 @@ public interface MedidorService{
     void update(Medidor medidor);
 
     void delete(Integer id);
+
 }

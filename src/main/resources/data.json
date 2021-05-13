@@ -25,10 +25,10 @@
   ],
   "reportes": [
     {
-      "id": 701, "date": "10/05/2020", "kWh": 5000, "medidorId": 501
+      "id": 701, "date": "10/05/2020", "kWh": 5000, "medidorId": 501, "pagoPendiente": 0
     },
     {
-      "id": 702, "date": "17/10/2020", "kWh": 7200, "medidorId": 502
+      "id": 702, "date": "17/10/2020", "kWh": 7200, "medidorId": 502, "pagoPendiente": 0
     }
   ]
 }

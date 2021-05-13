@@ -101,8 +101,9 @@ public class JSONParser {
                 int medidorId = reporte.get("medidorId").asInt();
                 int kWh = reporte.get("kWh").asInt();
                 Date date = new SimpleDateFormat("dd/MM/y").parse(reporte.get("date").asText());
+                boolean pagoPendiente = reporte.get("pagoPendiente").asBoolean();
 
-                Reporte newReporte = new Reporte(id,date,kWh,medidorId);
+                Reporte newReporte = new Reporte(id,date,kWh,medidorId,pagoPendiente);
                 listReportes.add(newReporte);
             }
         }

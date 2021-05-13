@@ -11,4 +11,14 @@ public class MedidorDAOImpl extends GenericDAOImpl<Medidor, Integer> implements 
     public MedidorDAOImpl(ArrayList<Medidor> table) {
         super(table);
     }
+
+    @Override
+    public Medidor getByContractNumber(Integer contractNumber) {
+        for (Medidor medidor : this.table){
+            if (medidor.getContractNumber() == contractNumber){
+                return medidor;
+            }
+        }
+        return null;
+    }
 }

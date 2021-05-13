@@ -32,36 +32,17 @@ public class App
     public static void main( String[] args ) throws ParseException, IOException {
 
         ApplicationContext applicationContext = ApplicationContext.init();
-        AppPrints appPrints = new AppPrints();
 
         ContratoService contratoService = applicationContext.getContratoService();
         MedidorService medidorService = applicationContext.getMedidorService();
         PersonaService personaService = applicationContext.getPersonaService();
         ReporteService reporteService = applicationContext.getReporteService();
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-        seleccionTipoUsuario(reader);
+        AppTerminal appTerminal = new AppTerminal(contratoService, medidorService, personaService, reporteService);
+        appTerminal.start();
     }
 
-    public static void seleccionTipoUsuario(BufferedReader reader) throws IOException {
-        int Cliente = 1;
-        int Funcionario = 2;
-        AppPrints appPrints = new AppPrints();
-        appPrints.printSeleccionTipoUsuario();
 
-        int tipoUsuario = Integer.parseInt(reader.readLine());
 
-        if (tipoUsuario == Cliente){
-
-        }
-        else if (tipoUsuario == Funcionario){
-
-        }
-    }
-
-    public static void inicioSesion(BufferedReader reader, int tipoUsuario, ReporteService reporteService){
-
-    }
 
 }
