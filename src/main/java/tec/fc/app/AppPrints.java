@@ -9,6 +9,8 @@ public class AppPrints {
 
     }
 
+
+
     void printInicioSessionId(){
         System.out.println("________________________________________________________________________________________");
         System.out.println("Por favor iniciar sesión");
@@ -37,7 +39,7 @@ public class AppPrints {
         System.out.println("Por favor ingrese un tipo de usario válido");
     }
 
-    void printMenuCliente(){
+    void printMenuClienteOpciones(){
         System.out.println("________________________________________________________________________________________");
         System.out.println("Menu:");
         System.out.println("1. Mis medidores");
@@ -47,12 +49,61 @@ public class AppPrints {
         System.out.println("5. Salir");
     }
 
+    void printPagosPendients(int idMedidor, int montoPendiente){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Id de medidor: " + idMedidor);
+        System.out.println("Monto pendiente: "+ montoPendiente);
+    }
+
+    void printOpcionRealizarPago(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Si desea realizar un pago ingrese 1");
+        System.out.println("Si desea volver al menu, ingrese cualquier tecla");
+    }
+
+    void printRealizarPago(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Ingrese el id del medidor que desea pagar");
+    }
+
 
     void printMisMedidores(int idMedidor, int tarifaMedidor, int pagoPendiente){
         System.out.println("________________________________________________________________________________________");
         System.out.println("Id de medidor: " + idMedidor);
         System.out.println("Tarifa de medidor: " + tarifaMedidor);
         System.out.println("Pagos pendientes: "+ pagoPendiente);
+    }
+
+    void printRegresarMenu(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Ingrese cualquier tecla para regresar al menu");
+    }
+
+    void printClienteNoTieneEseMedidor(int idCliente, int idMedidor){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Disculpe, el cliente con id: " + idCliente + " no posee un medidor con id: " + idMedidor);
+    }
+
+    void printMisTarjetas(int idTarjeta, long cardNumber, int saldo){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Id de tarjeta: " + idTarjeta);
+        System.out.println("Número de tarjeta: " + cardNumber);
+        System.out.println("Saldo de tarjeta: " + saldo);
+    }
+
+    void printOpcionPagoTarjetas(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Ingrese el id de la tarjeta con la cual desea pagar");
+    }
+
+    void printSaldoInsuficiente(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("El saldo de la tarjeta es insuficiente para realizar el pago deseado");
+    }
+
+    void printTarjetaEquivocada(int idCliente){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Disculpe, la tarjeta ingresada no pertenece al cliente con id: " + idCliente);
     }
 
 

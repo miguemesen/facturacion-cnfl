@@ -27,7 +27,7 @@ public abstract class GenericDAOImpl<T extends Entity, ID extends Integer> imple
     @Override
     public T findById(ID id) {
         for (T t : this.table){
-            if (t.getId() == id){
+            if (t.getId().equals(id)){
                 return t;
             }
         }

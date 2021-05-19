@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import tec.fc.app.domain.Medidor;
 import tec.fc.app.domain.Reporte;
+import tec.fc.app.domain.Tarjeta;
 import tec.fc.app.domain.cliente.Persona;
 import tec.fc.app.domain.cliente.PersonaFisica;
 import tec.fc.app.domain.cliente.PersonaJuridica;
@@ -91,6 +92,25 @@ public class JSONParser {
     }
 
 
+    public ArrayList<Tarjeta> cargarTarjetas() {
+        ArrayList<Tarjeta> listTarjetas = new ArrayList<>();
+        ArrayNode tarjetas = (ArrayNode) node.get("tarjetas");
+        if (tarjetas != null) {
+            for (int i = 0; i < tarjetas.size(); i++) {
+                JsonNode tarjeta = tarjetas.get(i);
+                int id = tarjeta.get("id").asInt();
+                int cardNumber = tarjeta.get("cardNumber").asInt();
+                int ownerId = tarjeta.get("ownerId").asInt();
+                int saldo = tarjeta.get("saldo").asInt();
+
+                Tarjeta newTarjeta = new Tarjeta(id, cardNumber, ownerId,saldo);
+                listTarjetas.add(newTarjeta);
+            }
+        }
+        return listTarjetas;
+    }
+
+
     public ArrayList<Reporte> cargarReportes() throws ParseException {
         ArrayList<Reporte> listReportes = new ArrayList<>();
         ArrayNode reportes = (ArrayNode) node.get("reportes");
@@ -101,7 +121,7 @@ public class JSONParser {
                 int medidorId = reporte.get("medidorId").asInt();
                 int kWh = reporte.get("kWh").asInt();
                 Date date = new SimpleDateFormat("dd/MM/y").parse(reporte.get("date").asText());
-                boolean pagoPendiente = reporte.get("pagoPendiente").asBoolean();
+                boolean pagoPendiente = Boolean.parseBoolean(reporte.get("pagoPendiente").asText());
 
                 Reporte newReporte = new Reporte(id,date,kWh,medidorId,pagoPendiente);
                 listReportes.add(newReporte);

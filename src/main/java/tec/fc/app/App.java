@@ -6,10 +6,7 @@ import tec.fc.app.domain.Reporte;
 import tec.fc.app.domain.cliente.Persona;
 import tec.fc.app.domain.contrato.GenericContrato;
 import tec.fc.app.domain.contrato.TarifaResidencialHorariaTREH;
-import tec.fc.app.service.ContratoService;
-import tec.fc.app.service.MedidorService;
-import tec.fc.app.service.PersonaService;
-import tec.fc.app.service.ReporteService;
+import tec.fc.app.service.*;
 
 
 import java.io.BufferedReader;
@@ -39,8 +36,9 @@ public class App
         MedidorService medidorService = applicationContext.getMedidorService();
         PersonaService personaService = applicationContext.getPersonaService();
         ReporteService reporteService = applicationContext.getReporteService();
+        TarjetaService tarjetaService = applicationContext.getTarjetaService();
 
-        AppTerminal appTerminal = new AppTerminal(contratoService, medidorService, personaService, reporteService);
+        AppTerminal appTerminal = new AppTerminal(contratoService, medidorService, personaService, reporteService, tarjetaService);
         appTerminal.start();
     }
 
