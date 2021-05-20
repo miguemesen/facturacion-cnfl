@@ -18,17 +18,19 @@ public class AppTerminal {
     private PersonaService personaService;
     private ReporteService reporteService;
     private TarjetaService tarjetaService;
+    private SolicitudService solicitudService;
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     AppPrints appPrints = new AppPrints();
     int Cliente = 1;
     int Funcionario = 2;
 
-    public AppTerminal(ContratoService contratoService, MedidorService medidorService, PersonaService personaService, ReporteService reporteService, TarjetaService tarjetaService) {
+    public AppTerminal(ContratoService contratoService, MedidorService medidorService, PersonaService personaService, ReporteService reporteService, TarjetaService tarjetaService, SolicitudService solicitudService) {
         this.contratoService = contratoService;
         this.medidorService = medidorService;
         this.personaService = personaService;
         this.reporteService = reporteService;
         this.tarjetaService = tarjetaService;
+        this.solicitudService = solicitudService;
     }
 
 
@@ -42,6 +44,7 @@ public class AppTerminal {
             inicioSesionClienteId();
         }
         else if (tipoUsuario == this.Funcionario){
+            appPrints.printInicioSessionId();
             inicioSesionFuncionarioId();
         } else {
             appPrints.printTipoUsuarioNoValido();
@@ -61,7 +64,25 @@ public class AppTerminal {
         }
     }
 
-    private void inicioSesionFuncionarioId(){}
+    private void inicioSesionFuncionarioId() throws IOException {
+        int idIngresado = 0;
+        try {
+            idIngresado = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException | IOException e) {
+            inicioSesionFuncionarioId();
+        }
+
+        if (personaService.getById(idIngresado) != null && personaService.getById(idIngresado).isFuncionario()){
+            appPrints.printMenuFuncionario(personaService.getById(idIngresado).getName());
+            menuFuncionario(idIngresado);
+        } else {
+            appPrints.printUsuarioNoEncontrado(idIngresado);
+            seleccionTipoUsuario();
+        }
+
+    }
+
+
 
 
 
@@ -151,6 +172,49 @@ public class AppTerminal {
         menuCliente(idCliente);
     }
 
+
+    //________________________________________________________________________________________________________________________
+    // Opciones de Menu Funcionario
+    //________________________________________________________________________________________________________________________
+
+    // Medidores
+    private void opcionUnoFuncionario(){
+        appPrints.printOpcionUnoFuncionario();
+        int opcionIngresado = 0;
+        try {
+            opcionIngresado = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException | IOException e) {
+            opcionUnoFuncionario();
+        }
+
+        if (opcionIngresado == 1){
+            for (GenericContrato genericContrato : this.contratoService.getAll()){
+                appPrints.printVerTodosLosMedidores(genericContrato.getId(),this.personaService.getById(genericContrato.getContractPromiseeId()).getName());
+            }
+        }
+    }
+
+    private void opcionDosFuncionario(){
+
+    }
+
+    private void opcionTresFuncionario(){}
+
+    private void opcionCuatroFuncionario(){}
+
+    private void opcionCincoFuncionario(){}
+
+    private void opcionSeisFuncionario(){}
+
+    //________________________________________________________________________________________________________________________
+    //________________________________________________________________________________________________________________________
+
+
+
+
+
+
+
     //________________________________________________________________________________________________________________________
     // Opciones de Menu cliente
     //________________________________________________________________________________________________________________________
@@ -203,6 +267,41 @@ public class AppTerminal {
     //________________________________________________________________________________________________________________________
 
 
+
+
+
+    //________________________________________________________________________________________________________________________
+    // Menu de Funcionario
+    //________________________________________________________________________________________________________________________
+
+    private void menuFuncionario(int idFuncionario) throws IOException{
+        appPrints.printMenuFuncionarioOpciones();
+        int opcionIngresado = 0;
+        try {
+            opcionIngresado = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException e) {
+            menuFuncionario(idFuncionario);
+        }
+
+        if (opcionIngresado == 1){
+            opcionUnoFuncionario(); // Medidores
+        }
+        else if (opcionIngresado == 2){
+            opcionDosFuncionario();
+        }
+    }
+
+    //________________________________________________________________________________________________________________________
+    //________________________________________________________________________________________________________________________
+
+
+
+
+
+    //________________________________________________________________________________________________________________________
+    // Menu de Cliente
+    //________________________________________________________________________________________________________________________
+
     private void menuCliente(int idCliente) throws IOException {
         appPrints.printMenuClienteOpciones();
 
@@ -232,7 +331,23 @@ public class AppTerminal {
         }
     }
 
+    //________________________________________________________________________________________________________________________
+    //________________________________________________________________________________________________________________________
+
+
+
+
+
+
+
+    //________________________________________________________________________________________________________________________
+    // Inicio de aplicación
+    //________________________________________________________________________________________________________________________
+
     public void start() throws IOException {
         seleccionTipoUsuario();
     }
+    //________________________________________________________________________________________________________________________
+    //________________________________________________________________________________________________________________________
+
 }

@@ -28,6 +28,12 @@ public class AppPrints {
 
     }
 
+    void printMenuFuncionario(String name){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Hola funcionario " + name + ", bienvenide al sistema de facturacion del CNFL");
+
+    }
+
     void printUsuarioNoEncontrado(int idIngresado){
         System.out.println("________________________________________________________________________________________");
         System.out.println("Disculpe, no existe un usario en el sistema que tenga el id: " + idIngresado);
@@ -47,6 +53,32 @@ public class AppPrints {
         System.out.println("3. Mis tarjetas");
         System.out.println("4. Solicitar nuevo medidor");
         System.out.println("5. Salir");
+    }
+
+    void printMenuFuncionarioOpciones(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Menu:");
+        System.out.println("1. Medidores");
+        System.out.println("2. Clientes");
+        System.out.println("3. Solicitudes de Medidor");
+        System.out.println("4. Apelaciones");
+        System.out.println("5. Salir");
+    }
+
+    void printOpcionUnoFuncionario(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("1. Ver todos los medidores");
+        System.out.println("2. Buscar medidor por id");
+        System.out.println("3. Actualizar medidor");
+        System.out.println("4. Eliminar medidor");
+        System.out.println("5. Agregar nuevo medidor");
+        System.out.println("6. Regresar al menu");
+    }
+
+    void printVerTodosLosMedidores(int contractNumber, String contractPromiseeName){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Número contrato medidor: " + contractNumber);
+        System.out.println("Propietario del contrato: " + contractPromiseeName);
     }
 
     void printPagosPendients(int idMedidor, int montoPendiente){

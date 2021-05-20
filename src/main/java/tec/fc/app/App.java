@@ -37,8 +37,9 @@ public class App
         PersonaService personaService = applicationContext.getPersonaService();
         ReporteService reporteService = applicationContext.getReporteService();
         TarjetaService tarjetaService = applicationContext.getTarjetaService();
+        SolicitudService solicitudService = applicationContext.getSolicitudService();
 
-        AppTerminal appTerminal = new AppTerminal(contratoService, medidorService, personaService, reporteService, tarjetaService);
+        AppTerminal appTerminal = new AppTerminal(contratoService, medidorService, personaService, reporteService, tarjetaService, solicitudService);
         appTerminal.start();
     }
 

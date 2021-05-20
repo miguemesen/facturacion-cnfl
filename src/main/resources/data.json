@@ -1,10 +1,10 @@
 {
   "personas": [
     {
-      "id": 1, "name": "Juan Rivera", "address": "San Jose"
+      "id": 1, "name": "Juan Rivera", "address": "San Jose", "personaFisica" : "true", "funcionario" : "false"
     },
     {
-      "id": 1001, "name": "Mc Donalds", "address": "Santa Ana"
+      "id": 1001, "name": "Mc Donalds", "address": "Santa Ana", "personaFisica" : "true", "funcionario" : "true"
     }
   ],
   "contratos": [
