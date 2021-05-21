@@ -1,5 +1,7 @@
 package tec.fc.app;
 
+import java.util.Date;
+
 public class AppPrints {
 
      void printSeleccionTipoUsuario(){
@@ -52,9 +54,38 @@ public class AppPrints {
         System.out.println("2. Pagos pendientes");
         System.out.println("3. Mis tarjetas");
         System.out.println("4. Solicitar nuevo medidor");
-        System.out.println("5. Realizar apelación");
-        System.out.println("6. Salir");
+        System.out.println("5. Apelaciones");
+        System.out.println("6. Reportes");
+        System.out.println("7. Salir");
     }
+
+    void printReportes(int idReporte, Date fecha, int tarifa, int kWh, int monto){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Id reporte: " + idReporte);
+        System.out.println("Fecha: " + fecha.toString());
+        System.out.println("Tarifa kWh: " + tarifa);
+        System.out.println("kWh: " + kWh);
+        System.out.println("Monto a pagar: " + monto);
+    }
+
+    void printApelaciones(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("1. Realizar apelación");
+        System.out.println("2. Mis apelaciones");
+        System.out.println("3. Salir");
+    }
+
+    void printReporteNoPerteneceCliente(int idCliente, int idReporte){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Disculpe, el usuario con id: " + idCliente + " no posee un reporte con id: "+ idReporte);
+        System.out.println("Por favor re intente con un id de reporte diferente");
+    }
+
+    void printSolicitudNoExiste(int idReporte){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Disculpe, no existe una apelación con el id: " + idReporte);
+    }
+
 
     void printMenuFuncionarioOpciones(){
         System.out.println("________________________________________________________________________________________");
@@ -152,8 +183,52 @@ public class AppPrints {
     void printApelacionGracias(){
         System.out.println("________________________________________________________________________________________");
         System.out.println("Su apelación será evaluada por un funcionario, podrá ver la respuesta a su apelación");
-        System.out.println("en la opción de 'Resultados de solicitud' en el menu principal. Muchas gracias.");
+        System.out.println("en la opción de 'Mis apelaciones' en el menu de apelaciones. Muchas gracias.");
     }
+
+    void printSolicitudes(int idReporte, String descripcion, String nombreCliente){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Reporte id: " + idReporte);
+        System.out.println("Nombre cliente: " + nombreCliente);
+        System.out.println("Descripción: " + descripcion);
+    }
+
+    void printMisApelaciones(int idReporte, String descripcion, String respuesta){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Reporte id: " + idReporte);
+        System.out.println("Descripción: " + descripcion);
+        System.out.println("Respuesta: " + respuesta);
+    }
+
+    void printOpcionesApelacion(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Para solucionar una apelacion ingrese 1");
+        System.out.println("Para volver al menu ingrese cualquier otra tecla");
+    }
+
+    void printSolucionApelacionIngreseId(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Ingrese el id de la apelacion que desea solucionar");
+    }
+
+    void printConformidadConRespuesta(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Está satisfeche con la respuesta recibida?");
+        System.out.println("1. Sí");
+        System.out.println("2. No");
+    }
+
+    void printApelacionSatisfecha(String clienteName){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("En CNFL nos preocupamos por nuestros clientes y nos enorgullece");
+        System.out.println("brindar el mejor servicio, muchas gracias "+ clienteName);
+    }
+
+    void printSolucionApelacionRespuesta(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Ingrese una respuesta al cliente");
+    }
+
 
 }
 

@@ -2,6 +2,7 @@ package tec.fc.app;
 
 import tec.fc.app.domain.Medidor;
 import tec.fc.app.domain.Reporte;
+import tec.fc.app.domain.Solicitud;
 import tec.fc.app.domain.Tarjeta;
 import tec.fc.app.domain.contrato.GenericContrato;
 import tec.fc.app.service.*;
@@ -201,20 +202,45 @@ public class AppTerminal {
         else if (opcionIngresado == 2){
             System.out.println("No implementado");
         }
+
+        else if (opcionIngresado == 3){
+            System.out.println("No implementado");
+        }
+        else if (opcionIngresado == 4){
+            System.out.println("No implementado");
+        }
+        else if (opcionIngresado == 5){
+            System.out.println("No implementado");
+        }
         else if (opcionIngresado == 6){
             menuFuncionario();
         }
     }
 
-    private void opcionDosFuncionario(){}
+    private void opcionDosFuncionario(){
+        System.out.println("No implementado");
+    }
 
-    private void opcionTresFuncionario(){}
+    private void opcionTresFuncionario(){
+        System.out.println("No implementado");
+    }
 
-    private void opcionCuatroFuncionario(){
+    private void opcionCuatroFuncionario() throws IOException {
+        for (Solicitud solicitud : this.solicitudService.getAll()){
+            if (!solicitud.isSolucionado()){ // Si la solicitud no se ha solucionado se hace print
+                appPrints.printSolicitudes(solicitud.getId(),solicitud.getDescripcion(), personaService.getById(solicitud.getIdCliente()).getName() );
+            }
+        }
+        if (this.solicitudService.getAll().size() != 0){
+            opcionesApelacion();
+        } else {
+            menuFuncionario();
+        }
+
 
     }
 
-    private void opcionCincoFuncionario() throws IOException {
+    private void opcionCincoFuncionario() throws IOException { // Salir
         seleccionTipoUsuario();
     }
 
@@ -222,6 +248,46 @@ public class AppTerminal {
     //________________________________________________________________________________________________________________________
     //________________________________________________________________________________________________________________________
 
+
+    private void opcionesApelacion() throws IOException {
+        appPrints.printOpcionesApelacion();
+        int opcionIngresado = 0;
+        try {
+            opcionIngresado = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException e) {
+            opcionesApelacion();
+        }
+
+        if (opcionIngresado == 1){ // Desea solucionar una apelacion
+            solucionApelacion();
+        } else {
+            menuFuncionario();
+        }
+    }
+
+    private void solucionApelacion() throws IOException {
+        appPrints.printSolucionApelacionIngreseId();
+        int idReporte = 0;
+        try {
+            idReporte = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException e) {
+            solucionApelacion();
+        }
+
+        if (this.solicitudService.getById(idReporte) == null){
+            appPrints.printSolicitudNoExiste(idReporte);
+        }
+
+        else if (this.solicitudService.getById(idReporte) != null && !this.solicitudService.getById(idReporte).isSolucionado()){ // Verificamos que no esté solucionado
+            appPrints.printSolucionApelacionRespuesta();
+            String respuesta = this.reader.readLine();
+            this.solicitudService.getById(idReporte).setRespuesta(respuesta);
+            this.solicitudService.getById(idReporte).setSolucionado(true);
+        }
+
+        regresarAlMenuFuncionario();
+
+    }
 
     //________________________________________________________________________________________________________________________
     // Regresa al funcionario al menu de medidores
@@ -246,10 +312,11 @@ public class AppTerminal {
     //________________________________________________________________________________________________________________________
 
     private void regresarAlMenuFuncionario() throws IOException {
+        appPrints.printRegresarMenu();
         int opcionIngresado = 0;
         try {
             opcionIngresado = Integer.parseInt(this.reader.readLine());
-        } catch (NumberFormatException | IOException e) {
+        } catch (NumberFormatException e) {
             regresarAlMenuFuncionario();
         }
         menuFuncionario();
@@ -320,30 +387,68 @@ public class AppTerminal {
 
     }
 
-    // Apelacion
+    // Apelaciones
     private void opcionCinco(int idCliente) throws IOException{
-        appPrints.printApelacionIngresarIdReporte();
-        int idReporte = 0;
-        String descripcion = "";
+        appPrints.printApelaciones();
+        int opcionIngresado = 0;
         try {
-            idReporte = Integer.parseInt(this.reader.readLine());
+            opcionIngresado = Integer.parseInt(this.reader.readLine());
         } catch (NumberFormatException e) {
             opcionCinco(idCliente);
         }
 
-        appPrints.printApelacionIngresarDescripcion();
-        try {
-            descripcion = this.reader.readLine();
-        } catch (IOException e) {
+        if (opcionIngresado == 1){ // Realizar Apelacion
+            appPrints.printApelacionIngresarIdReporte();
+            int idReporte = 0;
+            try {
+                idReporte = Integer.parseInt(this.reader.readLine());
+            } catch (NumberFormatException e) {
+                opcionCinco(idCliente);
+            }
+
+            if (reporteAndClient(idReporte,idCliente)){
+                realizarApelacion(idReporte,idCliente);
+                regresarAlMenu(idCliente);
+            } else {
+                appPrints.printReporteNoPerteneceCliente(idCliente,idReporte);
+                regresarAlMenu(idCliente);
+            }
+
+        }
+        else if (opcionIngresado == 2){ // Mis apelaciones
+            for (Solicitud solicitud : this.solicitudService.getAll()){
+                if (solicitud.getIdCliente() == idCliente && solicitud.isSolucionado()){
+                    appPrints.printMisApelaciones(solicitud.getId(),solicitud.getDescripcion(),solicitud.getRespuesta());
+                    conformidadConRespuesta(solicitud.getId(), idCliente);
+                }
+            }
+
+            regresarAlMenu(idCliente);
+        }
+        else if (opcionIngresado == 3){ // Salir
+            menuCliente(idCliente);
+        } else {
             opcionCinco(idCliente);
         }
-        appPrints.printApelacionGracias();
 
-        regresarAlMenu(idCliente);
     }
 
+    private void opcionSeis(int idCliente) throws IOException { // Reportes
+
+        for (GenericContrato genericContrato : this.contratoService.getByPromiseeId(idCliente)){
+            if (reporteService.getIntPagosPendientesByMedidorId(medidorService.getByContractNumber(genericContrato.getId()).getId()) != 0){ // verificamos si el medidor tiene pagos pendientes
+                for (Reporte reporte : this.reporteService.getListPagosPendientesByMedidorId(this.medidorService.getByContractNumber(genericContrato.getId()).getId())){
+                    appPrints.printReportes(reporte.getId(),reporte.getDate(),genericContrato.getTarifa(),reporte.getkWh(), reporte.getkWh()*genericContrato.getTarifa());
+                }
+            }
+        }
+        regresarAlMenu(idCliente);
+
+    }
+
+
     // Salir / devuelve al inicio de la app
-    private void opcionSeis() throws IOException {
+    private void opcionSiete() throws IOException {
         seleccionTipoUsuario();
     }
 
@@ -353,6 +458,61 @@ public class AppTerminal {
     //________________________________________________________________________________________________________________________
 
 
+    private boolean reporteAndClient(int idReporte, int idCliente){
+        for (GenericContrato genericContrato : this.contratoService.getByPromiseeId(idCliente)){
+            if (reporteService.getIntPagosPendientesByMedidorId(medidorService.getByContractNumber(genericContrato.getId()).getId()) != 0){ // verificamos si el medidor tiene pagos pendientes
+                for (Reporte reporte : this.reporteService.getListPagosPendientesByMedidorId(this.medidorService.getByContractNumber(genericContrato.getId()).getId())){
+                    if (reporte.getId() == idReporte){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private void realizarApelacion(int idReporte, int idCliente){
+
+        String descripcion = "";
+        appPrints.printApelacionIngresarDescripcion();
+        try {
+            descripcion = this.reader.readLine();
+        } catch (IOException e) {
+            realizarApelacion(idReporte, idCliente);
+        }
+        appPrints.printApelacionGracias();
+
+        if (this.solicitudService.getById(idReporte) == null){
+            this.solicitudService.addNew(new Solicitud(idReporte,1,descripcion, idCliente));
+        } else {
+            this.solicitudService.update(new Solicitud(idReporte,1,descripcion,idCliente));
+        }
+
+
+    }
+
+    private void conformidadConRespuesta(int idReporte, int idCliente) throws IOException {
+        appPrints.printConformidadConRespuesta();
+
+        int opcionIngresado = 0;
+        try {
+            opcionIngresado = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException e) {
+            conformidadConRespuesta(idReporte, idCliente);
+        }
+
+        if (opcionIngresado == 1){ // Sí está conforme
+            this.solicitudService.delete(idReporte);
+            appPrints.printApelacionSatisfecha(this.personaService.getById(idCliente).getName());
+            regresarAlMenu(idCliente);
+        }
+        else if (opcionIngresado == 2){ // No está conforme
+            this.solicitudService.getById(idReporte).setSolucionado(false);
+            realizarApelacion(idReporte,idCliente);
+        } else {
+            conformidadConRespuesta(idReporte, idCliente);
+        }
+    }
 
 
 
@@ -369,13 +529,19 @@ public class AppTerminal {
             menuFuncionario();
         }
 
-        if (opcionIngresado == 1){
-            opcionUnoFuncionario(); // Medidores
+        if (opcionIngresado == 1){ // Medidores
+            opcionUnoFuncionario();
         }
-        else if (opcionIngresado == 2){
+        else if (opcionIngresado == 2){ // Clientes
             opcionDosFuncionario();
         }
-        else if(opcionIngresado == 5){
+        else if (opcionIngresado == 3){
+            opcionTresFuncionario();
+        }
+        else if (opcionIngresado == 4){
+            opcionCuatroFuncionario();
+        }
+        else if(opcionIngresado == 5){ // Salir
             opcionCincoFuncionario();
         }
     }
@@ -417,7 +583,10 @@ public class AppTerminal {
             opcionCinco(idCliente);
         }
         else if (opcionIngresado == 6){
-            opcionSeis();
+            opcionSeis(idCliente);
+        }
+        else if (opcionIngresado == 7){
+            opcionSiete();
         } else {
             menuCliente(idCliente);
         }
