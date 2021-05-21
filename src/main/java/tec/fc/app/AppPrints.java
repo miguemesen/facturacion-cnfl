@@ -37,7 +37,7 @@ public class AppPrints {
         System.out.println("Por favor ingrese un tipo de usario válido");
     }
 
-    void printMenuCliente(){
+    void printMenuClienteOpciones(){
         System.out.println("________________________________________________________________________________________");
         System.out.println("Menu:");
         System.out.println("1. Mis medidores");
