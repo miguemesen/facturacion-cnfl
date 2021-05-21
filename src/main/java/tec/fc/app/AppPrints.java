@@ -52,7 +52,8 @@ public class AppPrints {
         System.out.println("2. Pagos pendientes");
         System.out.println("3. Mis tarjetas");
         System.out.println("4. Solicitar nuevo medidor");
-        System.out.println("5. Salir");
+        System.out.println("5. Realizar apelación");
+        System.out.println("6. Salir");
     }
 
     void printMenuFuncionarioOpciones(){
@@ -138,6 +139,21 @@ public class AppPrints {
         System.out.println("Disculpe, la tarjeta ingresada no pertenece al cliente con id: " + idCliente);
     }
 
+    void printApelacionIngresarIdReporte(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Ingrese el id del reporte/pago pendiente que desea apelar");
+    }
+
+    void printApelacionIngresarDescripcion(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Ingrese un texto donde explica la razón de su disconformidad");
+    }
+
+    void printApelacionGracias(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Su apelación será evaluada por un funcionario, podrá ver la respuesta a su apelación");
+        System.out.println("en la opción de 'Resultados de solicitud' en el menu principal. Muchas gracias.");
+    }
 
 }
 

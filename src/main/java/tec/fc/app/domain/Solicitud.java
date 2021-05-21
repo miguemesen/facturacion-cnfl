@@ -30,6 +30,6 @@ public class Solicitud implements Entity{
 
     @Override
     public Integer getId() {
-        return null;
+        return id;
     }
 }

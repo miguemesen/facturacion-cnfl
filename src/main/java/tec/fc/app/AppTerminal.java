@@ -52,6 +52,11 @@ public class AppTerminal {
         }
     }
 
+
+    //________________________________________________________________________________________________________________________
+    // Inicio de session como cliente o funcionario
+    //________________________________________________________________________________________________________________________
+
     private void inicioSesionClienteId() throws IOException {
         appPrints.printInicioSessionId();
         int idIngresado = Integer.parseInt(this.reader.readLine());
@@ -74,7 +79,7 @@ public class AppTerminal {
 
         if (personaService.getById(idIngresado) != null && personaService.getById(idIngresado).isFuncionario()){
             appPrints.printMenuFuncionario(personaService.getById(idIngresado).getName());
-            menuFuncionario(idIngresado);
+            menuFuncionario();
         } else {
             appPrints.printUsuarioNoEncontrado(idIngresado);
             seleccionTipoUsuario();
@@ -82,9 +87,15 @@ public class AppTerminal {
 
     }
 
+    //________________________________________________________________________________________________________________________
+    //________________________________________________________________________________________________________________________
 
 
 
+
+    //________________________________________________________________________________________________________________________
+    // Proceso para hacer un pago con tarjeta como cliente
+    //________________________________________________________________________________________________________________________
 
     private void realizarPago(int idCliente) throws IOException {
         appPrints.printRealizarPago();
@@ -161,16 +172,9 @@ public class AppTerminal {
             menuCliente(idCliente);
         }
     }
+    //________________________________________________________________________________________________________________________
+    //________________________________________________________________________________________________________________________
 
-    private void regresarAlMenu(int idCliente) throws IOException {
-        int opcionIngresado = 0;
-        try {
-            opcionIngresado = Integer.parseInt(this.reader.readLine());
-        } catch (NumberFormatException | IOException e) {
-            regresarAlMenu(idCliente);
-        }
-        menuCliente(idCliente);
-    }
 
 
     //________________________________________________________________________________________________________________________
@@ -178,7 +182,7 @@ public class AppTerminal {
     //________________________________________________________________________________________________________________________
 
     // Medidores
-    private void opcionUnoFuncionario(){
+    private void opcionUnoFuncionario() throws IOException {
         appPrints.printOpcionUnoFuncionario();
         int opcionIngresado = 0;
         try {
@@ -191,27 +195,85 @@ public class AppTerminal {
             for (GenericContrato genericContrato : this.contratoService.getAll()){
                 appPrints.printVerTodosLosMedidores(genericContrato.getId(),this.personaService.getById(genericContrato.getContractPromiseeId()).getName());
             }
+            regresarAlMenuDeMedidores();
+
+        }
+        else if (opcionIngresado == 2){
+            System.out.println("No implementado");
+        }
+        else if (opcionIngresado == 6){
+            menuFuncionario();
         }
     }
 
-    private void opcionDosFuncionario(){
-
-    }
+    private void opcionDosFuncionario(){}
 
     private void opcionTresFuncionario(){}
 
-    private void opcionCuatroFuncionario(){}
+    private void opcionCuatroFuncionario(){
 
-    private void opcionCincoFuncionario(){}
+    }
 
-    private void opcionSeisFuncionario(){}
+    private void opcionCincoFuncionario() throws IOException {
+        seleccionTipoUsuario();
+    }
+
 
     //________________________________________________________________________________________________________________________
     //________________________________________________________________________________________________________________________
 
 
+    //________________________________________________________________________________________________________________________
+    // Regresa al funcionario al menu de medidores
+    //________________________________________________________________________________________________________________________
+
+    private void regresarAlMenuDeMedidores() throws IOException {
+        appPrints.printRegresarMenu();
+        int opcionIngresado = 0;
+        try {
+            opcionIngresado = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException | IOException e) {
+            regresarAlMenuDeMedidores();
+        }
+        opcionUnoFuncionario();
+    }
+    //________________________________________________________________________________________________________________________
+    //________________________________________________________________________________________________________________________
 
 
+    //________________________________________________________________________________________________________________________
+    // Regresa al funcionario al menu de funcionario
+    //________________________________________________________________________________________________________________________
+
+    private void regresarAlMenuFuncionario() throws IOException {
+        int opcionIngresado = 0;
+        try {
+            opcionIngresado = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException | IOException e) {
+            regresarAlMenuFuncionario();
+        }
+        menuFuncionario();
+    }
+    //________________________________________________________________________________________________________________________
+    //________________________________________________________________________________________________________________________
+
+
+    //________________________________________________________________________________________________________________________
+    // Regresa al cliente al menu de cliente
+    //________________________________________________________________________________________________________________________
+
+    private void regresarAlMenu(int idCliente) throws IOException {
+        appPrints.printRegresarMenu();
+        int opcionIngresado = 0;
+        try {
+            opcionIngresado = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException | IOException e) {
+            regresarAlMenu(idCliente);
+        }
+        menuCliente(idCliente);
+    }
+    //________________________________________________________________________________________________________________________
+    //________________________________________________________________________________________________________________________
 
 
 
@@ -227,7 +289,6 @@ public class AppTerminal {
                     genericContrato.getTarifa(),
                     reporteService.getIntPagosPendientesByMedidorId(medidorService.getByContractNumber(genericContrato.getId()).getId()));
         }
-        appPrints.printRegresarMenu();
         regresarAlMenu(idCliente);
     }
 
@@ -249,19 +310,44 @@ public class AppTerminal {
         for (Tarjeta tarjeta : tarjetaService.getByOwnerId(idCliente)){
             appPrints.printMisTarjetas(tarjeta.getId(),tarjeta.getCardNumber(), tarjeta.getSaldo());
         }
-        appPrints.printRegresarMenu();
         regresarAlMenu(idCliente);
     }
 
     // Solicitar nuevo medidor
     private void opcionCuatro(int idCliente){
 
+
+
+    }
+
+    // Apelacion
+    private void opcionCinco(int idCliente) throws IOException{
+        appPrints.printApelacionIngresarIdReporte();
+        int idReporte = 0;
+        String descripcion = "";
+        try {
+            idReporte = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException e) {
+            opcionCinco(idCliente);
+        }
+
+        appPrints.printApelacionIngresarDescripcion();
+        try {
+            descripcion = this.reader.readLine();
+        } catch (IOException e) {
+            opcionCinco(idCliente);
+        }
+        appPrints.printApelacionGracias();
+
+        regresarAlMenu(idCliente);
     }
 
     // Salir / devuelve al inicio de la app
-    private void opcionCinco() throws IOException {
+    private void opcionSeis() throws IOException {
         seleccionTipoUsuario();
     }
+
+
 
     //________________________________________________________________________________________________________________________
     //________________________________________________________________________________________________________________________
@@ -274,13 +360,13 @@ public class AppTerminal {
     // Menu de Funcionario
     //________________________________________________________________________________________________________________________
 
-    private void menuFuncionario(int idFuncionario) throws IOException{
+    private void menuFuncionario() throws IOException{
         appPrints.printMenuFuncionarioOpciones();
         int opcionIngresado = 0;
         try {
             opcionIngresado = Integer.parseInt(this.reader.readLine());
         } catch (NumberFormatException e) {
-            menuFuncionario(idFuncionario);
+            menuFuncionario();
         }
 
         if (opcionIngresado == 1){
@@ -288,6 +374,9 @@ public class AppTerminal {
         }
         else if (opcionIngresado == 2){
             opcionDosFuncionario();
+        }
+        else if(opcionIngresado == 5){
+            opcionCincoFuncionario();
         }
     }
 
@@ -324,8 +413,11 @@ public class AppTerminal {
         else if (opcionIngresado ==4){
             opcionCuatro(idCliente);
         }
-        else if (opcionIngresado == 5){
-            opcionCinco();
+        else if(opcionIngresado == 5 ){
+            opcionCinco(idCliente);
+        }
+        else if (opcionIngresado == 6){
+            opcionSeis();
         } else {
             menuCliente(idCliente);
         }
