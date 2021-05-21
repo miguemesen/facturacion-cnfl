@@ -1,16 +1,12 @@
 package tec.fc.app;
 
-import tec.fc.app.dao.ContratoDAO;
-import tec.fc.app.dao.LocalDB.ContratoDAOImpl;
-import tec.fc.app.dao.LocalDB.MedidorDAOImpl;
-import tec.fc.app.dao.LocalDB.PersonaDAOImpl;
-import tec.fc.app.dao.LocalDB.ReporteDAOImpl;
-import tec.fc.app.dao.MedidorDAO;
-import tec.fc.app.dao.PersonaDAO;
-import tec.fc.app.dao.ReporteDAO;
+import tec.fc.app.dao.*;
+import tec.fc.app.dao.LocalDB.*;
 import tec.fc.app.database.LocalDB;
 import tec.fc.app.domain.Medidor;
 import tec.fc.app.domain.Reporte;
+import tec.fc.app.domain.Solicitud;
+import tec.fc.app.domain.Tarjeta;
 import tec.fc.app.domain.cliente.Persona;
 import tec.fc.app.domain.contrato.GenericContrato;
 import tec.fc.app.service.*;
@@ -21,6 +17,12 @@ import java.util.ArrayList;
 public class ApplicationContext {
 
     private LocalDB localDB;
+
+    private SolicitudDAO solicitudDAO;
+    private SolicitudService solicitudService;
+
+    private TarjetaDAO tarjetaDAO;
+    private TarjetaService tarjetaService;
 
     private ContratoDAO contratoDAO;
     private ContratoService contratoService;
@@ -40,6 +42,10 @@ public class ApplicationContext {
         ApplicationContext applicationContext = new ApplicationContext();
         applicationContext.localDB = initLocalDB();
 
+        applicationContext.solicitudDAO = initSolicitudDAO(applicationContext.localDB);
+        applicationContext.solicitudService = initSolicitudService(applicationContext.solicitudDAO);
+        applicationContext.tarjetaDAO = initTarjetaDAO(applicationContext.localDB);
+        applicationContext.tarjetaService = initTarjetaService(applicationContext.tarjetaDAO);
         applicationContext.contratoDAO = initContratoDAO(applicationContext.localDB);
         applicationContext.contratoService = initContratoService(applicationContext.contratoDAO);
         applicationContext.medidorDAO = initMedidorDAO(applicationContext.localDB);
@@ -58,8 +64,24 @@ public class ApplicationContext {
         ArrayList<Medidor> medidores = parser.cargarMedidores();
         ArrayList<Reporte> reportes = parser.cargarReportes();
         ArrayList<Persona> personas = parser.cargarPersonas();
+        ArrayList<Tarjeta> tarjetas = parser.cargarTarjetas();
+        ArrayList<Solicitud> solicitudes = new ArrayList<>();
 
-        return new LocalDB(personas,contratos,medidores,reportes);
+        return new LocalDB(personas,contratos,medidores,reportes,tarjetas, solicitudes);
+    }
+
+    private static SolicitudDAO initSolicitudDAO(LocalDB localDB){
+        return new SolicitudDAOImpl(localDB.solicitudes);
+    }
+    private static SolicitudService initSolicitudService(SolicitudDAO solicitudDAO){
+        return new SolicitudServiceImpl(solicitudDAO);
+    }
+
+    private static TarjetaDAO initTarjetaDAO(LocalDB localDB){
+        return new TarjetaDAOImpl(localDB.tarjetas);
+    }
+    private static TarjetaService initTarjetaService(TarjetaDAO tarjetaDAO){
+        return new TarjetaServiceImpl(tarjetaDAO);
     }
 
     private static ContratoDAO initContratoDAO(LocalDB localDB){
@@ -88,6 +110,12 @@ public class ApplicationContext {
     }
     public static ReporteService initReporteService(ReporteDAO reporteDAO){
         return new ReporteServiceImpl(reporteDAO);
+    }
+
+    public SolicitudService getSolicitudService(){return solicitudService;}
+
+    public TarjetaService getTarjetaService(){
+        return tarjetaService;
     }
 
     public ContratoService getContratoService() {

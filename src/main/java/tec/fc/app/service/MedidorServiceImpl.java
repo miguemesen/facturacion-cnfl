@@ -40,6 +40,6 @@ public class MedidorServiceImpl implements MedidorService{
 
     @Override
     public Medidor getByContractNumber(Integer contractNumber) {
-        return medidorDAO.getByContractNumber(contractNumber);
+        return this.medidorDAO.getByContractNumber(contractNumber);
     }
 }

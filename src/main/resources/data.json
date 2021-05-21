@@ -1,10 +1,10 @@
 {
   "personas": [
     {
-      "id": 1, "name": "Juan Rivera", "address": "San Jose"
+      "id": 1, "name": "Juan Rivera", "address": "San Jose", "personaFisica" : "true", "funcionario" : "false"
     },
     {
-      "id": 1001, "name": "Mc Donalds", "address": "Santa Ana"
+      "id": 1001, "name": "Mc Donalds", "address": "Santa Ana", "personaFisica" : "true", "funcionario" : "true"
     }
   ],
   "contratos": [
@@ -12,7 +12,7 @@
       "contractNumber": 101, "contractPromiseeId": 1, "tarifa": 1
     },
     {
-      "contractNumber": 102, "contractPromiseeId": 1001, "tarifa": 1
+      "contractNumber": 102, "contractPromiseeId": 1, "tarifa": 1
     }
   ],
   "medidores": [
@@ -25,10 +25,21 @@
   ],
   "reportes": [
     {
-      "id": 701, "date": "10/05/2020", "kWh": 5000, "medidorId": 501, "pagoPendiente": 0
+      "id": 701, "date": "10/05/2020", "kWh": 5000, "medidorId": 501, "pagoPendiente": "true"
     },
     {
-      "id": 702, "date": "17/10/2020", "kWh": 7200, "medidorId": 502, "pagoPendiente": 0
+      "id": 702, "date": "17/10/2020", "kWh": 7200, "medidorId": 502, "pagoPendiente": "true"
+    }
+  ],
+  "tarjetas": [
+    {
+      "id": 1, "cardNumber": 12345678, "ownerId": 1, "saldo": 20000
+    },
+    {
+      "id": 2, "cardNumber": 91011121, "ownerId": 1, "saldo": 100000
+    },
+    {
+      "id": 1, "cardNumber": 12345678, "ownerId": 2, "saldo": 100000
     }
   ]
 }

@@ -8,6 +8,12 @@ import java.util.List;
 
 public interface ReporteService{
 
+    int getIntPagosPendientesByMedidorId(Integer id);
+
+    List<Reporte> getListPagosPendientesByMedidorId(Integer id);
+
+    int getKWhPagosPendientesByMedidorId(Integer id);
+
     List<Reporte> getByMedidorId(Integer id);
 
     List<Reporte> getAll();

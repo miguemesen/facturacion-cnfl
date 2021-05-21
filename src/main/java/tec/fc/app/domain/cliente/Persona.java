@@ -2,16 +2,36 @@ package tec.fc.app.domain.cliente;
 
 import tec.fc.app.domain.Entity;
 
-public abstract class Persona implements Entity {
+public class Persona implements Entity {
 
     private Integer id;
     private String name;
     private String address;
+    private boolean personaFisica;
+    private boolean funcionario;
 
-    public Persona(Integer id, String name, String address) {
+    public Persona(Integer id, String name, String address, boolean personaFisica, boolean funcionario) {
         this.id = id;
         this.name = name;
         this.address = address;
+        this.personaFisica = personaFisica;
+        this.funcionario = funcionario;
+    }
+
+    public boolean isPersonaFisica() {
+        return personaFisica;
+    }
+
+    public void setPersonaFisica(boolean personaFisica) {
+        this.personaFisica = personaFisica;
+    }
+
+    public boolean isFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(boolean funcionario) {
+        this.funcionario = funcionario;
     }
 
     @Override

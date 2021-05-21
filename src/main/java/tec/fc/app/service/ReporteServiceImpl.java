@@ -3,6 +3,7 @@ package tec.fc.app.service;
 import tec.fc.app.dao.ReporteDAO;
 import tec.fc.app.domain.Reporte;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReporteServiceImpl implements ReporteService{
@@ -39,7 +40,32 @@ public class ReporteServiceImpl implements ReporteService{
     }
 
     @Override
+    public int getIntPagosPendientesByMedidorId(Integer id) {
+        return this.getListPagosPendientesByMedidorId(id).size();
+    }
+
+    @Override
+    public List<Reporte> getListPagosPendientesByMedidorId(Integer id) {
+        ArrayList<Reporte> reportesList = new ArrayList<>();
+        for (Reporte reporte : this.getByMedidorId(id)){
+            if (reporte.isPagoPendiente()){
+                reportesList.add(reporte);
+            }
+        }
+        return reportesList;
+    }
+
+    @Override
+    public int getKWhPagosPendientesByMedidorId(Integer id) {
+        int kWh = 0;
+        for (Reporte reporte : this.getListPagosPendientesByMedidorId(id)){
+            kWh = kWh + reporte.getkWh();
+        }
+        return kWh;
+    }
+
+    @Override
     public List<Reporte> getByMedidorId(Integer id) {
-        return null;
+        return this.reporteDAO.getByMedidorId(id);
     }
 }
