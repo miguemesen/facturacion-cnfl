@@ -5,9 +5,9 @@ public class Tarjeta implements Entity{
     private Integer id;
     private long cardNumber;
     private Integer ownerId;
-    private int saldo;
+    private double saldo;
 
-    public Tarjeta(Integer id, long cardNumber, Integer ownerId, int saldo) {
+    public Tarjeta(Integer id, long cardNumber, Integer ownerId, double saldo) {
         this.id = id;
         this.cardNumber = cardNumber;
         this.ownerId = ownerId;
@@ -18,11 +18,11 @@ public class Tarjeta implements Entity{
         return cardNumber;
     }
 
-    public int getSaldo() {
+    public double getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(int saldo) {
+    public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
 

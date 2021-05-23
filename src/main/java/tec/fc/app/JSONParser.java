@@ -7,8 +7,7 @@ import tec.fc.app.domain.Medidor;
 import tec.fc.app.domain.Reporte;
 import tec.fc.app.domain.Tarjeta;
 import tec.fc.app.domain.cliente.Persona;
-import tec.fc.app.domain.contrato.GenericContrato;
-import tec.fc.app.domain.contrato.TarifaResidencialHorariaTREH;
+import tec.fc.app.domain.contrato.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -61,9 +60,45 @@ public class JSONParser {
                 JsonNode contrato = contratos.get(i);
                 int contractNumber = contrato.get("contractNumber").asInt();
                 int contractPromiseeId = contrato.get("contractPromiseeId").asInt();
+                int tipo = contrato.get("tipo").asInt();
 
-                TarifaResidencialHorariaTREH contratoTREH = new TarifaResidencialHorariaTREH(contractNumber, contractPromiseeId);
-                listContratos.add(contratoTREH);
+                if (tipo == 1){
+                    TarifaResidencialHorariaTREH miContrato = new TarifaResidencialHorariaTREH(contractNumber,contractPromiseeId,tipo);
+                    listContratos.add(miContrato);
+                }
+                else if (tipo == 2){
+                    TarifaResidencialTRE miContrato = new TarifaResidencialTRE(contractNumber,contractPromiseeId,tipo);
+                    listContratos.add(miContrato);
+                }
+                else if (tipo == 3){
+                    TarifaAlumbradoPublicoTAP miContrato = new TarifaAlumbradoPublicoTAP(contractNumber,contractPromiseeId,tipo);
+                    listContratos.add(miContrato);
+                }
+                else if (tipo == 4){
+                    TarifaIndustrialTIN miContrato = new TarifaIndustrialTIN(contractNumber,contractPromiseeId,tipo);
+                    listContratos.add(miContrato);
+                }
+                else if (tipo == 5){
+                    TarifaMediaTensionTMT miContrato = new TarifaMediaTensionTMT(contractNumber,contractPromiseeId,tipo);
+                    listContratos.add(miContrato);
+                }
+                else if (tipo == 6){
+                    TarifaMediaTensionTMtb miContrato = new TarifaMediaTensionTMtb(contractNumber,contractPromiseeId,tipo);
+                    listContratos.add(miContrato);
+                }
+                else if (tipo == 7){
+                    TarifaPreferencialDeCaracterSocialTCS miContrato = new TarifaPreferencialDeCaracterSocialTCS(contractNumber,contractPromiseeId,tipo);
+                    listContratos.add(miContrato);
+                }
+                else if (tipo == 8){
+                    TarifaPromocionalTPRO miContrato = new TarifaPromocionalTPRO(contractNumber,contractPromiseeId,tipo);
+                    listContratos.add(miContrato);
+                }
+                else if (tipo == 9){
+                    TarifaComercialYServiciosTCO miContrato = new TarifaComercialYServiciosTCO(contractNumber,contractPromiseeId,tipo);
+                    listContratos.add(miContrato);
+                }
+
             }
         }
         return listContratos;
@@ -113,11 +148,13 @@ public class JSONParser {
                 JsonNode reporte = reportes.get(i);
                 int id = reporte.get("id").asInt();
                 int medidorId = reporte.get("medidorId").asInt();
-                int kWh = reporte.get("kWh").asInt();
+                int kWh_punta = reporte.get("kWh_punta").asInt();
+                int kWh_valle = reporte.get("kWh_valle").asInt();
+                int kWh_noche = reporte.get("kWh_noche").asInt();
                 Date date = new SimpleDateFormat("dd/MM/y").parse(reporte.get("date").asText());
                 boolean pagoPendiente = Boolean.parseBoolean(reporte.get("pagoPendiente").asText());
 
-                Reporte newReporte = new Reporte(id,date,kWh,medidorId,pagoPendiente);
+                Reporte newReporte = new Reporte(id,date,kWh_punta, kWh_valle, kWh_noche,medidorId,pagoPendiente);
                 listReportes.add(newReporte);
             }
         }

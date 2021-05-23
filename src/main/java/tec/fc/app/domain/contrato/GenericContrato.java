@@ -6,12 +6,20 @@ public abstract class GenericContrato implements Entity {
 
     private Integer id;
     private int contractPromiseeId;
-    protected int tarifa;
+    private int tipo;
 
-
-    public GenericContrato(Integer contractNumber, int contractPromiseeId) {
+    public GenericContrato(Integer contractNumber, int contractPromiseeId, int tipo) {
         this.id = contractNumber;
         this.contractPromiseeId = contractPromiseeId;
+        this.tipo = tipo;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
 
     @Override
@@ -31,11 +39,4 @@ public abstract class GenericContrato implements Entity {
         this.contractPromiseeId = contractPromiseeId;
     }
 
-    public int getTarifa() {
-        return tarifa;
-    }
-
-    public void setTarifa(int tarifa) {
-        this.tarifa = tarifa;
-    }
 }

@@ -12,7 +12,7 @@ public interface ReporteService{
 
     List<Reporte> getListPagosPendientesByMedidorId(Integer id);
 
-    int getKWhPagosPendientesByMedidorId(Integer id);
+    int getKWhTotalesPagosPendientesByMedidorId(Integer id);
 
     List<Reporte> getByMedidorId(Integer id);
 

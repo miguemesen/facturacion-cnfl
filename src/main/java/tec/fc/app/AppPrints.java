@@ -59,16 +59,23 @@ public class AppPrints {
         System.out.println("7. Salir");
     }
 
-    void printReportes(int idReporte, Date fecha, int tarifa, int kWh, int monto){
+    void printReportes(int idReporte, Date fecha, int kWh, double monto, boolean isPagoPendiente){
         System.out.println("________________________________________________________________________________________");
         System.out.println("Id reporte: " + idReporte);
         System.out.println("Fecha: " + fecha.toString());
-        System.out.println("Tarifa kWh: " + tarifa);
-        System.out.println("kWh: " + kWh);
+        System.out.println("kWh totales: " + kWh);
         System.out.println("Monto a pagar: " + monto);
+        if (isPagoPendiente){
+            System.out.println("Pago pendiente: sí");
+        } else {
+            System.out.println("Pago pendiente: no");
+        }
     }
 
     void printApelaciones(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Para realizar una apelacion debe ingresar el id del reporte que desea apelar");
+        System.out.println("Podrá ver todos sus reportes con su respectivo id en la sección de reportes en el menu.");
         System.out.println("________________________________________________________________________________________");
         System.out.println("1. Realizar apelación");
         System.out.println("2. Mis apelaciones");
@@ -113,7 +120,7 @@ public class AppPrints {
         System.out.println("Propietario del contrato: " + contractPromiseeName);
     }
 
-    void printPagosPendients(int idMedidor, int montoPendiente){
+    void printPagosPendients(int idMedidor, double montoPendiente){
         System.out.println("________________________________________________________________________________________");
         System.out.println("Id de medidor: " + idMedidor);
         System.out.println("Monto pendiente: "+ montoPendiente);
@@ -131,10 +138,10 @@ public class AppPrints {
     }
 
 
-    void printMisMedidores(int idMedidor, int tarifaMedidor, int pagoPendiente){
+    void printMisMedidores(int idMedidor, String tipoMedidor, int pagoPendiente){
         System.out.println("________________________________________________________________________________________");
         System.out.println("Id de medidor: " + idMedidor);
-        System.out.println("Tarifa de medidor: " + tarifaMedidor);
+        System.out.println("Tipo de medidor: " + tipoMedidor);
         System.out.println("Pagos pendientes: "+ pagoPendiente);
     }
 
@@ -148,7 +155,7 @@ public class AppPrints {
         System.out.println("Disculpe, el cliente con id: " + idCliente + " no posee un medidor con id: " + idMedidor);
     }
 
-    void printMisTarjetas(int idTarjeta, long cardNumber, int saldo){
+    void printMisTarjetas(int idTarjeta, long cardNumber, double saldo){
         System.out.println("________________________________________________________________________________________");
         System.out.println("Id de tarjeta: " + idTarjeta);
         System.out.println("Número de tarjeta: " + cardNumber);

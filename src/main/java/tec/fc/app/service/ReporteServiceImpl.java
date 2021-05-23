@@ -56,10 +56,10 @@ public class ReporteServiceImpl implements ReporteService{
     }
 
     @Override
-    public int getKWhPagosPendientesByMedidorId(Integer id) {
+    public int getKWhTotalesPagosPendientesByMedidorId(Integer id) {
         int kWh = 0;
         for (Reporte reporte : this.getListPagosPendientesByMedidorId(id)){
-            kWh = kWh + reporte.getkWh();
+            kWh = kWh + reporte.getkWh_punta();
         }
         return kWh;
     }
