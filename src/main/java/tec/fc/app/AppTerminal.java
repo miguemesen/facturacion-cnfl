@@ -3,6 +3,7 @@ package tec.fc.app;
 import tec.fc.app.domain.Reporte;
 import tec.fc.app.domain.Solicitud;
 import tec.fc.app.domain.Tarjeta;
+import tec.fc.app.domain.cliente.Persona;
 import tec.fc.app.domain.contrato.*;
 import tec.fc.app.service.*;
 
@@ -263,8 +264,11 @@ public class AppTerminal {
         }
     }
 
-    private void opcionDosFuncionario(){
-        System.out.println("No implementado");
+    private void opcionDosFuncionario() throws IOException {
+        for (Persona persona : this.personaService.getAll()){
+            appPrints.printTodosClientes(persona.getId(),persona.getName(),persona.getAddress(), persona.isPersonaFisica());
+        }
+        regresarAlMenuFuncionario();
     }
 
     private void opcionTresFuncionario(){

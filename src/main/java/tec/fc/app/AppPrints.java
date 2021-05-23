@@ -236,6 +236,17 @@ public class AppPrints {
         System.out.println("Ingrese una respuesta al cliente");
     }
 
+    void printTodosClientes(int id, String name, String address, boolean personaFisica){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Id: " + id);
+        System.out.println("Nombre: " + name);
+        System.out.println("Address: " + address);
+        if (personaFisica){
+            System.out.println("Tipo persona: Física");
+        } else {
+            System.out.println("Tipo persona: Jurídica");
+        }
+    }
 
 }
 
