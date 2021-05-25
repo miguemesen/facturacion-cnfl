@@ -4,7 +4,31 @@
       "id": 1, "name": "Juan Rivera", "address": "San Jose", "personaFisica" : "true", "funcionario" : "false"
     },
     {
-      "id": 1001, "name": "Mc Donalds", "address": "Santa Ana", "personaFisica" : "true", "funcionario" : "true"
+      "id": 2, "name": "Valentina Picado", "address": "San Jose", "personaFisica" : "true", "funcionario" : "false"
+    },
+    {
+      "id": 3, "name": "Mc Donalds", "address": "Cartago", "personaFisica" : "false", "funcionario" : "false"
+    },
+    {
+      "id": 4, "name": "Pops", "address": "Alajuela", "personaFisica" : "false", "funcionario" : "false"
+    },
+    {
+      "id": 5, "name": "Julian Mata", "address": "Puntarenas", "personaFisica" : "true", "funcionario" : "false"
+    },
+    {
+      "id": 1001, "name": "Erick Arguedas", "address": "Santa Ana", "personaFisica" : "true", "funcionario" : "true"
+    },
+    {
+      "id": 1002, "name": "Maria Araya", "address": "Escazu", "personaFisica" : "true", "funcionario" : "true"
+    },
+    {
+      "id": 1003, "name": "Michelle Monge", "address": "Perez Zeledon", "personaFisica" : "true", "funcionario" : "true"
+    },
+    {
+      "id": 1004, "name": "Sebastian Soto", "address": "Santa Ana", "personaFisica" : "true", "funcionario" : "true"
+    },
+    {
+      "id": 1005, "name": "Fabricio Godinez", "address": "Cartago", "personaFisica" : "true", "funcionario" : "true"
     }
   ],
   "contratos": [
@@ -13,6 +37,30 @@
     },
     {
       "contractNumber": 102, "contractPromiseeId": 1, "tipo": 2
+    },
+    {
+      "contractNumber": 103, "contractPromiseeId": 2, "tipo": 3
+    },
+    {
+      "contractNumber": 104, "contractPromiseeId": 3, "tipo": 4
+    },
+    {
+      "contractNumber": 105, "contractPromiseeId": 4, "tipo": 5
+    },
+    {
+      "contractNumber": 106, "contractPromiseeId": 5, "tipo": 6
+    },
+    {
+      "contractNumber": 107, "contractPromiseeId": 1, "tipo": 7
+    },
+    {
+      "contractNumber": 108, "contractPromiseeId": 2, "tipo": 8
+    },
+    {
+      "contractNumber": 109, "contractPromiseeId": 3, "tipo": 9
+    },
+    {
+      "contractNumber": 110, "contractPromiseeId": 4, "tipo": 1
     }
   ],
   "medidores": [
@@ -21,6 +69,30 @@
     },
     {
       "id": 502, "contractNumber": 102
+    },
+    {
+      "id": 503, "contractNumber": 103
+    },
+    {
+      "id": 504, "contractNumber": 104
+    },
+    {
+      "id": 505, "contractNumber": 105
+    },
+    {
+      "id": 506, "contractNumber": 106
+    },
+    {
+      "id": 507, "contractNumber": 107
+    },
+    {
+      "id": 508, "contractNumber": 108
+    },
+    {
+      "id": 509, "contractNumber": 109
+    },
+    {
+      "id": 510, "contractNumber": 110
     }
   ],
   "reportes": [
@@ -28,7 +100,61 @@
       "id": 701, "date": "10/05/2020", "kWh_punta": 1000, "kWh_valle": 500, "kWh_noche": 250, "medidorId": 501, "pagoPendiente": "true"
     },
     {
-      "id": 702, "date": "17/10/2020", "kWh_punta": 300, "kWh_valle": 300, "kWh_noche": 100, "medidorId": 502, "pagoPendiente": "true"
+      "id": 702, "date": "17/10/2020", "kWh_punta": 300, "kWh_valle": 300, "kWh_noche": 100, "medidorId": 501, "pagoPendiente": "true"
+    },
+    {
+      "id": 703, "date": "10/05/2020", "kWh_punta": 1000, "kWh_valle": 500, "kWh_noche": 250, "medidorId": 501, "pagoPendiente": "true"
+    },
+    {
+      "id": 704, "date": "17/10/2020", "kWh_punta": 300, "kWh_valle": 300, "kWh_noche": 100, "medidorId": 504, "pagoPendiente": "true"
+    },
+    {
+      "id": 705, "date": "10/05/2020", "kWh_punta": 1000, "kWh_valle": 500, "kWh_noche": 250, "medidorId": 505, "pagoPendiente": "true"
+    },
+    {
+      "id": 706, "date": "17/10/2020", "kWh_punta": 300, "kWh_valle": 300, "kWh_noche": 100, "medidorId": 506, "pagoPendiente": "true"
+    },
+    {
+      "id": 707, "date": "10/05/2020", "kWh_punta": 1000, "kWh_valle": 500, "kWh_noche": 250, "medidorId": 507, "pagoPendiente": "true"
+    },
+    {
+      "id": 708, "date": "17/10/2020", "kWh_punta": 300, "kWh_valle": 300, "kWh_noche": 100, "medidorId": 508, "pagoPendiente": "true"
+    },
+    {
+      "id": 709, "date": "10/05/2020", "kWh_punta": 1000, "kWh_valle": 500, "kWh_noche": 250, "medidorId": 509, "pagoPendiente": "true"
+    },
+    {
+      "id": 710, "date": "17/10/2020", "kWh_punta": 300, "kWh_valle": 300, "kWh_noche": 100, "medidorId": 510, "pagoPendiente": "true"
+    },
+    {
+      "id": 711, "date": "10/05/2020", "kWh_punta": 1000, "kWh_valle": 500, "kWh_noche": 250, "medidorId": 501, "pagoPendiente": "true"
+    },
+    {
+      "id": 712, "date": "17/10/2020", "kWh_punta": 300, "kWh_valle": 300, "kWh_noche": 100, "medidorId": 502, "pagoPendiente": "true"
+    },
+    {
+      "id": 713, "date": "10/05/2020", "kWh_punta": 1000, "kWh_valle": 500, "kWh_noche": 250, "medidorId": 503, "pagoPendiente": "true"
+    },
+    {
+      "id": 714, "date": "17/10/2020", "kWh_punta": 300, "kWh_valle": 300, "kWh_noche": 100, "medidorId": 504, "pagoPendiente": "true"
+    },
+    {
+      "id": 715, "date": "10/05/2020", "kWh_punta": 1000, "kWh_valle": 500, "kWh_noche": 250, "medidorId": 505, "pagoPendiente": "true"
+    },
+    {
+      "id": 716, "date": "17/10/2020", "kWh_punta": 300, "kWh_valle": 300, "kWh_noche": 100, "medidorId": 506, "pagoPendiente": "true"
+    },
+    {
+      "id": 717, "date": "10/05/2020", "kWh_punta": 1000, "kWh_valle": 500, "kWh_noche": 250, "medidorId": 507, "pagoPendiente": "true"
+    },
+    {
+      "id": 718, "date": "17/10/2020", "kWh_punta": 300, "kWh_valle": 300, "kWh_noche": 100, "medidorId": 508, "pagoPendiente": "true"
+    },
+    {
+      "id": 719, "date": "10/05/2020", "kWh_punta": 1000, "kWh_valle": 500, "kWh_noche": 250, "medidorId": 509, "pagoPendiente": "true"
+    },
+    {
+      "id": 720, "date": "17/10/2020", "kWh_punta": 300, "kWh_valle": 300, "kWh_noche": 100, "medidorId": 510, "pagoPendiente": "true"
     }
   ],
   "tarjetas": [

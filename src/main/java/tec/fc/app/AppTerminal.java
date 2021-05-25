@@ -36,10 +36,14 @@ public class AppTerminal {
 
 
     private void seleccionTipoUsuario() throws IOException {
-        System.out.println("Arreglar seleccionTipoUsuario con try catch");
         this.appPrints.printSeleccionTipoUsuario();
 
-        int tipoUsuario = Integer.parseInt(this.reader.readLine());
+        int tipoUsuario = 0;
+        try {
+            tipoUsuario = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException e) {
+            seleccionTipoUsuario();
+        }
 
         if (tipoUsuario == this.Cliente){
             inicioSesionClienteId();
@@ -48,7 +52,6 @@ public class AppTerminal {
             appPrints.printInicioSessionId();
             inicioSesionFuncionarioId();
         } else {
-            appPrints.printTipoUsuarioNoValido();
             seleccionTipoUsuario();
         }
     }
@@ -59,10 +62,15 @@ public class AppTerminal {
     //________________________________________________________________________________________________________________________
 
     private void inicioSesionClienteId() throws IOException {
-        System.out.println("Arreglar inicioSesionClienteId con try catch");
         appPrints.printInicioSessionId();
-        int idIngresado = Integer.parseInt(this.reader.readLine());
-        if (personaService.getById(idIngresado) != null){ // Si el resultado es null significa que el cliente no existe en nuestra BD
+        int idIngresado = 0;
+        try {
+            idIngresado = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException e) {
+            inicioSesionClienteId();
+        }
+
+        if (this.personaService.getById(idIngresado) != null && !this.personaService.getById(idIngresado).isFuncionario()){ // Si el resultado es null significa que el cliente no existe en nuestra BD
             appPrints.printMenuCliente(personaService.getById(idIngresado).getName());
             menuCliente(idIngresado);
         } else {
@@ -128,7 +136,7 @@ public class AppTerminal {
             TarifaPromocionalTPRO contrato = (TarifaPromocionalTPRO) this.contratoService.getById(this.medidorService.getById(reporte.getMedidorId()).getContractNumber());
             return contrato.getTarifa(reporte.getkWh_punta() + reporte.getkWh_valle() + reporte.getkWh_noche()) * (reporte.getkWh_punta() + reporte.getkWh_valle() + reporte.getkWh_noche());
         }
-        else if (this.contratoService.getById(this.medidorService.getById(reporte.getMedidorId()).getContractNumber()).getClass() == TarifaComercialYServiciosTCO.class){
+        else if (this.contratoService.getById(this.medidorService.getById(reporte.getMedidorId()).getContractNumber()).getClass() == TarifaComercialYServiciosTCO.class){ // Tipo 9
             TarifaComercialYServiciosTCO contrato = (TarifaComercialYServiciosTCO) this.contratoService.getById(this.medidorService.getById(reporte.getMedidorId()).getContractNumber());
             return contrato.getTarifa(reporte.getkWh_punta() + reporte.getkWh_valle() + reporte.getkWh_noche()) * (reporte.getkWh_punta() + reporte.getkWh_valle() + reporte.getkWh_noche());
         }
@@ -166,7 +174,7 @@ public class AppTerminal {
                     for (Reporte reporte : this.reporteService.getListPagosPendientesByMedidorId(idMedidor)){
                         this.reporteService.update(new Reporte(reporte.getId(),reporte.getDate(),reporte.getkWh_punta(), reporte.getkWh_valle(), reporte.getkWh_noche(),reporte.getMedidorId(),false));
                     }
-                    menuCliente(idCliente);
+                    appPrints.printPagoExitoso();
                 }
                 menuCliente(idCliente);
             }
@@ -241,23 +249,63 @@ public class AppTerminal {
 
         if (opcionIngresado == 1){ // Ver todos los medidores
             for (GenericContrato genericContrato : this.contratoService.getAll()){
-                appPrints.printVerTodosLosMedidores(genericContrato.getId(),this.personaService.getById(genericContrato.getContractPromiseeId()).getName());
+                appPrints.printVerTodosLosMedidores(this.medidorService.getByContractNumber(genericContrato.getId()).getId(),genericContrato.getId(),this.personaService.getById(genericContrato.getContractPromiseeId()).getName(),tipoMedidor(genericContrato.getTipo()));
             }
             regresarAlMenuDeMedidores();
 
         }
         else if (opcionIngresado == 2){ // Buscar medidor por id
-            System.out.println("No implementado");
+
+            appPrints.printBuscarMedidorPorId();
+
+            int idMedidor = 0;
+            try {
+                idMedidor = Integer.parseInt(this.reader.readLine());
+            } catch (NumberFormatException e) {
+                opcionUnoFuncionario();
+            }
+
+
+            if (this.medidorService.getById(idMedidor) != null){ // Verificamos que el medidor exista
+                appPrints.printVerTodosLosMedidores(
+                        idMedidor,
+                        this.medidorService.getById(idMedidor).getContractNumber(),
+                        this.personaService.getById(this.contratoService.getById(this.medidorService.getById(idMedidor).getContractNumber()).getContractPromiseeId()).getName(),
+                        tipoMedidor(this.contratoService.getById(this.medidorService.getById(idMedidor).getContractNumber()).getTipo())
+                );
+
+                appPrints.printReportesDeMedidor();
+
+                for (Reporte reporte : this.reporteService.getByMedidorId(idMedidor)){
+                    appPrints.printReportesParaFuncionario(
+                            reporte.getId(),
+                            reporte.getDate(),
+                            reporte.getkWh_punta(),
+                            reporte.getkWh_valle(),
+                            reporte.getkWh_noche(),
+                            idMedidor
+                    );
+                }
+
+            } else {
+                appPrints.printMedidorNoExiste(idMedidor);
+            }
+
+
+            regresarAlMenuFuncionario();
         }
 
         else if (opcionIngresado == 3){ // Actualizar medidor
-            System.out.println("No implementado");
+            appPrints.printNoImplementadoFuncionario();
+            regresarAlMenuFuncionario();
         }
         else if (opcionIngresado == 4){ // Eliminar medidor
-            System.out.println("No implementado");
+            appPrints.printNoImplementadoFuncionario();
+            regresarAlMenuFuncionario();
         }
         else if (opcionIngresado == 5){ // Agregar nuevo medidor
-            System.out.println("No implementado");
+            appPrints.printNoImplementadoFuncionario();
+            regresarAlMenuFuncionario();
         }
         else if (opcionIngresado == 6){ // Regresar al menu
             menuFuncionario();
@@ -271,8 +319,32 @@ public class AppTerminal {
         regresarAlMenuFuncionario();
     }
 
-    private void opcionTresFuncionario(){
-        System.out.println("No implementado");
+
+    // Reportes, los buscamos por id
+    private void opcionTresFuncionario() throws IOException {
+        appPrints.printIngreseIdReporte();
+
+        int idReporte = 0;
+        try {
+            idReporte = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException e) {
+            opcionTresFuncionario();
+        }
+
+        if (this.reporteService.getById(idReporte) != null){ // Verificamos que el reporte exista
+
+            appPrints.printReportesParaFuncionario(
+                    idReporte,
+                    this.reporteService.getById(idReporte).getDate(),
+                    this.reporteService.getById(idReporte).getkWh_punta(),
+                    this.reporteService.getById(idReporte).getkWh_valle(),
+                    this.reporteService.getById(idReporte).getkWh_noche(),
+                    this.reporteService.getById(idReporte).getMedidorId()
+            );
+        } else {
+            appPrints.printReporteNoExiste(idReporte);
+        }
+        regresarAlMenuFuncionario();
     }
 
     private void opcionCuatroFuncionario() throws IOException {
@@ -329,6 +401,9 @@ public class AppTerminal {
         }
 
         else if (this.solicitudService.getById(idReporte) != null && !this.solicitudService.getById(idReporte).isSolucionado()){ // Verificamos que no esté solucionado
+
+            arreglarReporte(idReporte);
+
             appPrints.printSolucionApelacionRespuesta();
             String respuesta = this.reader.readLine();
             this.solicitudService.getById(idReporte).setRespuesta(respuesta);
@@ -339,8 +414,53 @@ public class AppTerminal {
 
     }
 
-    private void arreglarReporte(int idReporte){
+    private void modificarKWhReporte(int idReporte) throws IOException {
+        appPrints.printModificarKWhPunta();
+        int kWhPunta = 0;
+        try {
+            kWhPunta = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException e) {
+            modificarKWhReporte(idReporte);
+        }
+        appPrints.printModificarKWhValle();
+        int kWhValle = 0;
+        try {
+            kWhValle = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException e) {
+            modificarKWhReporte(idReporte);
+        }
+        appPrints.printModificarKWhNoche();
+        int kWhNoche = 0;
+        try {
+            kWhNoche = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException e) {
+            modificarKWhReporte(idReporte);
+        }
 
+        this.reporteService.update(new Reporte(
+                idReporte,
+                this.reporteService.getById(idReporte).getDate(),
+                kWhPunta,
+                kWhValle,
+                kWhNoche,
+                this.reporteService.getById(idReporte).getMedidorId(),
+                this.reporteService.getById(idReporte).isPagoPendiente()
+        ));
+    }
+
+    private void arreglarReporte(int idReporte) throws IOException {
+        appPrints.printReportesParaFuncionario(idReporte, this.reporteService.getById(idReporte).getDate(),this.reporteService.getById(idReporte).getkWh_punta(),this.reporteService.getById(idReporte).getkWh_valle(),this.reporteService.getById(idReporte).getkWh_noche(),this.reporteService.getById(idReporte).getMedidorId());
+        appPrints.printArreglarReporte();
+
+        int opcionIngresado = 0;
+        try {
+            opcionIngresado = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException e) {
+            arreglarReporte(idReporte);
+        }
+        if (opcionIngresado == 1){
+            modificarKWhReporte(idReporte);
+        }
     }
 
     //________________________________________________________________________________________________________________________
@@ -428,6 +548,45 @@ public class AppTerminal {
         return "";
     }
 
+    private void eliminarTarjeta(int idCliente) throws IOException {
+        appPrints.printIngreseIdEliminarTarjeta();
+        int idTarjeta = 0;
+        try {
+            idTarjeta = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException e) {
+            eliminarTarjeta(idCliente);
+        }
+
+        if (this.tarjetaService.getById(idTarjeta) != null && this.tarjetaService.getById(idTarjeta).getOwnerId() == idCliente){ // verificamos que la tarjeta exista y pertenezca al cliente
+            this.tarjetaService.delete(idTarjeta);
+            appPrints.printTarjetaEliminadaConExito();
+        } else {
+            appPrints.printTarjetaEquivocada(idCliente);
+        }
+    }
+
+    private void agregarTarjetaNueva(int idCliente) throws IOException {
+        appPrints.printAgregarNumeroTarjeta();
+
+        int numeroTarjeta = 0;
+        try {
+            numeroTarjeta = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException e) {
+            agregarTarjetaNueva(idCliente);
+        }
+
+        appPrints.printAgregarSaldo();
+        int saldoTarjeta = 0;
+        try {
+            saldoTarjeta = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException e) {
+            agregarTarjetaNueva(idCliente);
+        }
+
+        this.tarjetaService.addNew(new Tarjeta(this.tarjetaService.getLastId()+1, numeroTarjeta, idCliente,saldoTarjeta));
+
+    }
+
     //________________________________________________________________________________________________________________________
     // Opciones de Menu cliente
     //________________________________________________________________________________________________________________________
@@ -440,6 +599,7 @@ public class AppTerminal {
                     tipoMedidor(genericContrato.getTipo()),
                     reporteService.getIntPagosPendientesByMedidorId(medidorService.getByContractNumber(genericContrato.getId()).getId()));
         }
+        appPrints.printInformacionContrato();
         regresarAlMenu(idCliente);
     }
 
@@ -463,15 +623,38 @@ public class AppTerminal {
 
     // Mis tarjetas
     private void opcionTres(int idCliente) throws IOException {
-        for (Tarjeta tarjeta : tarjetaService.getByOwnerId(idCliente)){
-            appPrints.printMisTarjetas(tarjeta.getId(),tarjeta.getCardNumber(), tarjeta.getSaldo());
+        appPrints.printMenuTarjetas();
+        int opcionIngresado = 0;
+        try {
+            opcionIngresado = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException e) {
+            opcionTres(idCliente);
         }
-        regresarAlMenu(idCliente);
+
+        if (opcionIngresado == 1){
+            for (Tarjeta tarjeta : tarjetaService.getByOwnerId(idCliente)){
+                appPrints.printMisTarjetas(tarjeta.getId(),tarjeta.getCardNumber(), tarjeta.getSaldo());
+            }
+            opcionTres(idCliente);
+        }
+        else if (opcionIngresado == 2){
+            agregarTarjetaNueva(idCliente);
+            opcionTres(idCliente);
+        }
+        else if (opcionIngresado == 3){
+            eliminarTarjeta(idCliente);
+            opcionTres(idCliente);
+        }
+        else if (opcionIngresado == 4){
+            menuCliente(idCliente);
+        } else {
+            opcionTres(idCliente);
+        }
     }
 
     // Solicitar nuevo medidor
     private void opcionCuatro(int idCliente) throws IOException {
-        System.out.println("Implementar");
+        appPrints.printNoImplementadoCliente();
         menuCliente(idCliente);
     }
 
@@ -522,16 +705,39 @@ public class AppTerminal {
     }
 
     private void opcionSeis(int idCliente) throws IOException { // Reportes
+        appPrints.printOpcionSeisCliente();
 
-        for (GenericContrato genericContrato : this.contratoService.getByPromiseeId(idCliente)){
-            if (reporteService.getIntPagosPendientesByMedidorId(medidorService.getByContractNumber(genericContrato.getId()).getId()) != 0){ // verificamos si el medidor tiene pagos pendientes
-                for (Reporte reporte : this.reporteService.getListPagosPendientesByMedidorId(this.medidorService.getByContractNumber(genericContrato.getId()).getId())){
-                    appPrints.printReportes(reporte.getId(),reporte.getDate(),reporte.getkWh_punta() + reporte.getkWh_valle() + reporte.getkWh_noche(), cobroDeReporte(reporte.getId()), reporte.isPagoPendiente());
+        int opcionIngresado = 0;
+        try {
+            opcionIngresado = Integer.parseInt(this.reader.readLine());
+        } catch (NumberFormatException e) {
+            opcionSeis(idCliente);
+        }
+
+        if (opcionIngresado == 1){
+            for (GenericContrato genericContrato : this.contratoService.getByPromiseeId(idCliente)){
+                if (reporteService.getIntPagosPendientesByMedidorId(medidorService.getByContractNumber(genericContrato.getId()).getId()) != 0){ // verificamos si el medidor tiene pagos pendientes
+                    for (Reporte reporte : this.reporteService.getListPagosPendientesByMedidorId(this.medidorService.getByContractNumber(genericContrato.getId()).getId())){
+                        appPrints.printReportes(reporte.getId(),reporte.getDate(),reporte.getkWh_punta(),reporte.getkWh_valle(), reporte.getkWh_noche(), cobroDeReporte(reporte.getId()), reporte.isPagoPendiente());
+                    }
                 }
             }
         }
-        regresarAlMenu(idCliente);
+        else if (opcionIngresado == 2){
+            for (GenericContrato genericContrato : this.contratoService.getByPromiseeId(idCliente)){
+                for (Reporte reporte : this.reporteService.getListPagosRealizadosByMedidorId(this.medidorService.getByContractNumber(genericContrato.getId()).getId())){
+                    appPrints.printReportes(reporte.getId(),reporte.getDate(),reporte.getkWh_punta(),reporte.getkWh_valle(), reporte.getkWh_noche(), cobroDeReporte(reporte.getId()), reporte.isPagoPendiente());
+                }
+            }
 
+        }
+        else if (opcionIngresado == 3){
+            regresarAlMenu(idCliente);
+        }
+        else {
+            opcionSeis(idCliente);
+        }
+        regresarAlMenu(idCliente);
     }
 
 

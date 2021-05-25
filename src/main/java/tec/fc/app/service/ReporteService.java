@@ -12,6 +12,8 @@ public interface ReporteService{
 
     List<Reporte> getListPagosPendientesByMedidorId(Integer id);
 
+    List<Reporte> getListPagosRealizadosByMedidorId(Integer id);
+
     int getKWhTotalesPagosPendientesByMedidorId(Integer id);
 
     List<Reporte> getByMedidorId(Integer id);
