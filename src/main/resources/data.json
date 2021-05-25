@@ -25,10 +25,10 @@
   ],
   "reportes": [
     {
-      "id": 701, "date": "10/05/2020", "kWh_punta": 5000, "kWh_valle": 5000, "kWh_noche": 5000, "medidorId": 501, "pagoPendiente": "true"
+      "id": 701, "date": "10/05/2020", "kWh_punta": 1000, "kWh_valle": 500, "kWh_noche": 250, "medidorId": 501, "pagoPendiente": "true"
     },
     {
-      "id": 702, "date": "17/10/2020", "kWh_punta": 7200, "kWh_valle": 300, "kWh_noche": 100, "medidorId": 502, "pagoPendiente": "true"
+      "id": 702, "date": "17/10/2020", "kWh_punta": 300, "kWh_valle": 300, "kWh_noche": 100, "medidorId": 502, "pagoPendiente": "true"
     }
   ],
   "tarjetas": [
@@ -36,7 +36,7 @@
       "id": 1, "cardNumber": 12345678, "ownerId": 1, "saldo": 20000
     },
     {
-      "id": 2, "cardNumber": 91011121, "ownerId": 1, "saldo": 10000000
+      "id": 2, "cardNumber": 91011121, "ownerId": 1, "saldo": 1000000
     },
     {
       "id": 3, "cardNumber": 69784321, "ownerId": 2, "saldo": 100000

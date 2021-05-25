@@ -239,27 +239,27 @@ public class AppTerminal {
             opcionUnoFuncionario();
         }
 
-        if (opcionIngresado == 1){
+        if (opcionIngresado == 1){ // Ver todos los medidores
             for (GenericContrato genericContrato : this.contratoService.getAll()){
                 appPrints.printVerTodosLosMedidores(genericContrato.getId(),this.personaService.getById(genericContrato.getContractPromiseeId()).getName());
             }
             regresarAlMenuDeMedidores();
 
         }
-        else if (opcionIngresado == 2){
+        else if (opcionIngresado == 2){ // Buscar medidor por id
             System.out.println("No implementado");
         }
 
-        else if (opcionIngresado == 3){
+        else if (opcionIngresado == 3){ // Actualizar medidor
             System.out.println("No implementado");
         }
-        else if (opcionIngresado == 4){
+        else if (opcionIngresado == 4){ // Eliminar medidor
             System.out.println("No implementado");
         }
-        else if (opcionIngresado == 5){
+        else if (opcionIngresado == 5){ // Agregar nuevo medidor
             System.out.println("No implementado");
         }
-        else if (opcionIngresado == 6){
+        else if (opcionIngresado == 6){ // Regresar al menu
             menuFuncionario();
         }
     }
@@ -336,6 +336,10 @@ public class AppTerminal {
         }
 
         regresarAlMenuFuncionario();
+
+    }
+
+    private void arreglarReporte(int idReporte){
 
     }
 
@@ -466,10 +470,9 @@ public class AppTerminal {
     }
 
     // Solicitar nuevo medidor
-    private void opcionCuatro(int idCliente){
-
-
-
+    private void opcionCuatro(int idCliente) throws IOException {
+        System.out.println("Implementar");
+        menuCliente(idCliente);
     }
 
     // Apelaciones

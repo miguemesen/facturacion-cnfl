@@ -248,5 +248,21 @@ public class AppPrints {
         }
     }
 
+
+    void printReportesParaFuncionario(int idReporte, Date fecha, int kWh_punta, int kWh_valle, int kWh_noche, int idMedidor){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Id reporte: " + idReporte);
+        System.out.println("Fecha: " + fecha.toString());
+        System.out.println("kWh punta: " + kWh_punta);
+        System.out.println("kWh valle: " + kWh_valle);
+        System.out.println("kWh noche: " + kWh_noche);
+        System.out.println("Id medidor: " + idMedidor);
+    }
+
+    void printArreglarReporte(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("1. ");
+    }
+
 }
 
