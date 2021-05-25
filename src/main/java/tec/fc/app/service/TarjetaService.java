@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface TarjetaService {
 
+    Integer getLastId();
 
     List<Tarjeta> getByOwnerId(Integer id);
 
@@ -15,5 +16,5 @@ public interface TarjetaService {
 
     void addNew(Tarjeta tarjeta);
 
-    void delete(Tarjeta tarjeta);
+    void delete(Integer idTarjeta);
 }

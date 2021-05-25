@@ -5,6 +5,8 @@ import java.util.Optional;
 
 public interface GenericDAO<T, ID extends Integer> {
 
+    Integer getLastId();
+
     List<T> findAll();
 
     T findById(ID id);

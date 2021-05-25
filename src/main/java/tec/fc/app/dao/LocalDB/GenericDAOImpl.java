@@ -14,6 +14,12 @@ public abstract class GenericDAOImpl<T extends Entity, ID extends Integer> imple
 
     protected ArrayList<T> table;
 
+    @Override
+    public Integer getLastId(){
+        int last = table.size();
+        return table.get(last-1).getId();
+    }
+
     public GenericDAOImpl(ArrayList<T> table) {
         Objects.requireNonNull(table);
         this.table = table;

@@ -32,7 +32,7 @@ public class AppPrints {
 
     void printMenuFuncionario(String name){
         System.out.println("________________________________________________________________________________________");
-        System.out.println("Hola funcionario " + name + ", bienvenide al sistema de facturacion del CNFL");
+        System.out.println("Hola funcionarie " + name + ", bienvenide al sistema de facturacion del CNFL");
 
     }
 
@@ -59,11 +59,13 @@ public class AppPrints {
         System.out.println("7. Salir");
     }
 
-    void printReportes(int idReporte, Date fecha, int kWh, double monto, boolean isPagoPendiente){
+    void printReportes(int idReporte, Date fecha, int kWh_punta, int kWh_valle, int kWh_noche, double monto, boolean isPagoPendiente){
         System.out.println("________________________________________________________________________________________");
-        System.out.println("Id reporte: " + idReporte);
+        System.out.println("Id del reporte: " + idReporte);
         System.out.println("Fecha: " + fecha.toString());
-        System.out.println("kWh totales: " + kWh);
+        System.out.println("kWh punta: " + kWh_punta);
+        System.out.println("kWh valle: " + kWh_valle);
+        System.out.println("kWh noche: " + kWh_noche);
         System.out.println("Monto a pagar: " + monto);
         if (isPagoPendiente){
             System.out.println("Pago pendiente: sí");
@@ -99,7 +101,7 @@ public class AppPrints {
         System.out.println("Menu:");
         System.out.println("1. Medidores");
         System.out.println("2. Clientes");
-        System.out.println("3. Solicitudes de Medidor");
+        System.out.println("3. Reportes");
         System.out.println("4. Apelaciones");
         System.out.println("5. Salir");
     }
@@ -114,9 +116,11 @@ public class AppPrints {
         System.out.println("6. Regresar al menu");
     }
 
-    void printVerTodosLosMedidores(int contractNumber, String contractPromiseeName){
+    void printVerTodosLosMedidores(int idMedidor, int contractNumber, String contractPromiseeName, String tipoContrato){
         System.out.println("________________________________________________________________________________________");
+        System.out.println("Id de medidor: " + idMedidor);
         System.out.println("Número contrato medidor: " + contractNumber);
+        System.out.println("Tipo de contrato: " + tipoContrato);
         System.out.println("Propietario del contrato: " + contractPromiseeName);
     }
 
@@ -141,7 +145,7 @@ public class AppPrints {
     void printMisMedidores(int idMedidor, String tipoMedidor, int pagoPendiente){
         System.out.println("________________________________________________________________________________________");
         System.out.println("Id de medidor: " + idMedidor);
-        System.out.println("Tipo de medidor: " + tipoMedidor);
+        System.out.println("Tipo de contrato: " + tipoMedidor);
         System.out.println("Pagos pendientes: "+ pagoPendiente);
     }
 
@@ -161,6 +165,7 @@ public class AppPrints {
         System.out.println("Número de tarjeta: " + cardNumber);
         System.out.println("Saldo de tarjeta: " + saldo);
     }
+
 
     void printOpcionPagoTarjetas(){
         System.out.println("________________________________________________________________________________________");
@@ -221,8 +226,8 @@ public class AppPrints {
     void printConformidadConRespuesta(){
         System.out.println("________________________________________________________________________________________");
         System.out.println("Está satisfeche con la respuesta recibida?");
-        System.out.println("1. Sí");
-        System.out.println("2. No");
+        System.out.println("1. Sí, deseo terminar el proceso de apelación");
+        System.out.println("2. No, deseo seguir hablando con el funcionario");
     }
 
     void printApelacionSatisfecha(String clienteName){
@@ -248,5 +253,123 @@ public class AppPrints {
         }
     }
 
+
+    void printReportesParaFuncionario(int idReporte, Date fecha, int kWh_punta, int kWh_valle, int kWh_noche, int idMedidor){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Id reporte: " + idReporte);
+        System.out.println("Fecha: " + fecha.toString());
+        System.out.println("kWh punta: " + kWh_punta);
+        System.out.println("kWh valle: " + kWh_valle);
+        System.out.println("kWh noche: " + kWh_noche);
+        System.out.println("Id medidor: " + idMedidor);
+    }
+
+    void printArreglarReporte(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Desea modificar el reporte?");
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Si desea modificar los kWh, ingrese 1");
+        System.out.println("Si no desea realizar alguna modificación, ingrese cualquier tecla");
+    }
+
+    void printModificarKWhPunta(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Ingrese los nuevos kWh punta");
+    }
+
+    void printModificarKWhValle(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Ingrese los nuevos kWh valle");
+    }
+
+    void printModificarKWhNoche(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Ingrese los nuevos kWh noche");
+    }
+
+    void printPagoExitoso(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Pago exitoso!");
+    }
+
+    void printMenuTarjetas(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("1. Ver mis tarjetas");
+        System.out.println("2. Agregar tarjeta nueva");
+        System.out.println("3. Eliminar tarjeta");
+        System.out.println("4. Salir");
+    }
+
+    void printAgregarNumeroTarjeta(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Ingrese el número de tarjeta");
+    }
+
+    void printAgregarSaldo(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Ingrese saldo de tarjeta");
+    }
+
+    void printIngreseIdEliminarTarjeta(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Ingrese el id de la tarjeta que desea eliminar");
+    }
+
+    void printTarjetaEliminadaConExito(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Tarjeta eliminada con éxito");
+    }
+
+    void printNoImplementadoCliente(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Disculpe usuario, por ahora no está disponible esta opción desde la aplicación.");
+        System.out.println("Para más información: https://www.cnfl.go.cr");
+    }
+
+    void printNoImplementadoFuncionario(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Disculpe funcionario, por ahora no está disponible esta opción desde la aplicación.");
+        System.out.println("Para más información comunicarse con la sede central de CNFL.");
+    }
+
+    void printInformacionContrato(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Para más información sobre los tipos de contrato:");
+        System.out.println("https://www.cnfl.go.cr/documentos/transparencia/consolidado_tarifas.pdf");
+    }
+
+    void printBuscarMedidorPorId(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Ingrese el id del medidor que desea buscar");
+    }
+
+    void printMedidorNoExiste(int idMedidor){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Disculpe, no exista un medidor con el id: " + idMedidor);
+    }
+
+    void printReporteNoExiste(int idReporte){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Disculpe, no exista un reporte con el id: " + idReporte);
+    }
+
+    void printReportesDeMedidor(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Reportes del medidor");
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("");
+    }
+
+    void printIngreseIdReporte(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("Ingrese el id del reporte que desea buscar");
+    }
+
+    void printOpcionSeisCliente(){
+        System.out.println("________________________________________________________________________________________");
+        System.out.println("1. Ver reportes con pago pendiente");
+        System.out.println("2. Ver reportes con pago realizado");
+        System.out.println("3. Salir");
+    }
 }
 

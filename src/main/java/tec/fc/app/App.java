@@ -28,8 +28,6 @@ public class App
 
     public static void main( String[] args ) throws ParseException, IOException {
 
-        // esto es un comentario
-
         ApplicationContext applicationContext = ApplicationContext.init();
 
         ContratoService contratoService = applicationContext.getContratoService();

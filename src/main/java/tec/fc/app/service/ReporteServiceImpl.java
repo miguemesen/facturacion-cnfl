@@ -45,6 +45,17 @@ public class ReporteServiceImpl implements ReporteService{
     }
 
     @Override
+    public List<Reporte> getListPagosRealizadosByMedidorId(Integer id) {
+        ArrayList<Reporte> reportesList = new ArrayList<>();
+        for (Reporte reporte : this.getByMedidorId(id)){
+            if (!reporte.isPagoPendiente()){
+                reportesList.add(reporte);
+            }
+        }
+        return reportesList;
+    }
+
+    @Override
     public List<Reporte> getListPagosPendientesByMedidorId(Integer id) {
         ArrayList<Reporte> reportesList = new ArrayList<>();
         for (Reporte reporte : this.getByMedidorId(id)){

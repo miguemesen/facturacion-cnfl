@@ -14,7 +14,10 @@ public class TarjetaServiceImpl implements TarjetaService{
         this.tarjetaDAO = tarjetaDAO;
     }
 
-
+    @Override
+    public Integer getLastId() {
+        return this.tarjetaDAO.getLastId();
+    }
 
     @Override
     public List<Tarjeta> getByOwnerId(Integer id) {
@@ -44,7 +47,7 @@ public class TarjetaServiceImpl implements TarjetaService{
     }
 
     @Override
-    public void delete(Tarjeta tarjeta) {
-        this.tarjetaDAO.save(tarjeta);
+    public void delete(Integer idTarjeta) {
+        this.tarjetaDAO.delete(idTarjeta);
     }
 }
